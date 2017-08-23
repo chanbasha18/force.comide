@@ -1,0 +1,1 @@
+{"result":[{"short_description":"When can we get off Remedy? UI is killing us","sys_id":"47064b68a9fe19810186793eefffc9b7","contact_type":"self-service","incident_state":"2","impact":"1"},{"short_description":"Request for a new service","sys_id":"4715ab62a9fe1981018c3efb96143495","contact_type":"phone","incident_state":"2","impact":"1"}]}
