@@ -1,0 +1,19 @@
+<apex:page >
+
+<div class="bPageTitle">
+    <div class="ptBody secondaryPalette">
+        <div class="content">
+            <img src="/img/icon/desk32.png" alt="Training Enrollment" style="float:left" class="pageTitleIconz" title="Training Enrollment"/>
+            <h1 class="pageType">My Training<span  class="titleSeparatingColon">:</span></h1>
+            <h2 class="pageDescription">Training Popup Window</h2>
+            <div class="blank">&nbsp;</div>
+         </div>
+    </div>
+</div>
+
+  <h1>Please wait</h1>
+<p>Your training content is launching in a popup window.</p>
+<p><a href="{!URLFOR($Action.Training_Enrollment__c.Tab,$ObjectType.Training_Enrollment__c)}">Return to My Training tab</a></p>
+
+
+</apex:page>

@@ -1,0 +1,5 @@
+<apex:page standardcontroller="cysent__Training_Enrollment__c" extensions="cysent.TrainingEnrollmentExtension" action="{!launchTrainingCourse}">
+<apex:sectionheader title="Launch Training" id="mainPage">
+
+</apex:sectionheader>
+</apex:page>

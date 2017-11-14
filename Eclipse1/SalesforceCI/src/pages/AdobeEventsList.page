@@ -1,0 +1,13 @@
+<apex:page controller="XMLparse">
+<apex:form >
+<apex:pageBlock title="Adobe Events List">
+<apex:pageBlockTable value="{!EventsList}" var="wrap" width="100%">
+<apex:column headerValue="Name" value="{!wrap.Name}"/>
+<apex:column headerValue="Domain Name" value="{!wrap.domain_name__c}"/>
+<apex:column headerValue="Date Begin" value="{!wrap.date_begin__c}"/>
+<apex:column headerValue="Date End" value="{!wrap.date_end__c}"/>
+<apex:column headerValue="Expired" value="{!wrap.expired__c}"/>
+</apex:pageBlockTable>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

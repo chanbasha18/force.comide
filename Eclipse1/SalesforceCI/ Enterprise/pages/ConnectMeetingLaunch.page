@@ -1,0 +1,61 @@
+<apex:page standardController="cysent__Connect_Meeting__c" extensions="cysent.CYRMeetingExtension">
+ <apex:form >
+   
+    
+   
+   
+     <apex:pageBlock title="Connect Meeting: {!cysent__Connect_Meeting__c.name}">
+
+    <apex:outputText value="{!cysent__Connect_Meeting__c.cysent__Details__c}" rendered="false" />
+    <apex:outputText value="{!cysent__Connect_Meeting__c.cysent__Start_Time__c}" rendered="false" />
+    <apex:outputText value="{!cysent__Connect_Meeting__c.cysent__End_Time__c}" rendered="false" />
+    <apex:outputText value="{!cysent__Connect_Meeting__c.cysent__Ad_Hoc__c}" rendered="false" />
+    <apex:outputText value="{!cysent__Connect_Meeting__c.cysent__Meeting_Room_ID__c}" rendered="false" />
+    
+
+
+<apex:actionFunction name="getAPIParams" id="getAPIParams" action="{!doSessionValues}" reRender="launchButton,launchNewButton">
+         <apex:param name="sessionId" assignTo="{!apiSessionId}" value="{!$Api.Session_ID}" />
+         <apex:param name="serverURL" assignTo="{!apiServerURL}" value="{!$Api.Partner_Server_URL_200}" />
+     </apex:actionFunction>
+     <script language="JavaScript">      
+          window.onload = function() {getAPIParams();}
+ 
+             function disableEnterKey(e)
+            {
+                 var key;      
+                 if(window.event)
+                      key = window.event.keyCode; //IE
+                 else
+                      key = e.which; //firefox      
+                 return (key != 13);
+            }
+
+  
+      </script>
+      <apex:outputText rendered="{!cysent__Connect_Meeting__c.cysent__Ad_Hoc__c==true}">
+        <p>A link to join your meeting room has been sent to all attendees.</p><p> Please select a button below to continue. </p>
+        <p></p>
+         <apex:commandButton id="launchNewButton" onclick="window.open('{!MeetingRoomURL}');" value="Launch Meeting Room" />
+         <apex:commandButton value="Return To Contact" 
+             action="{!goToContact}"  />
+      </apex:outputText>
+
+    <apex:outputText rendered="{!cysent__Connect_Meeting__c.cysent__Ad_Hoc__c==false}">
+        <p>A future meeting request has been sent to all attendees.</p><p> Please click the button below to continue. </p>
+        <p></p>
+         <apex:commandButton value="Return To Contact" 
+             action="{!goToContact}"  />
+      </apex:outputText>
+      
+ 
+
+     </apex:pageBlock>
+
+
+
+
+
+
+ </apex:form>
+</apex:page>

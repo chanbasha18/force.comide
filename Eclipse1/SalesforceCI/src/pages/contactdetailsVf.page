@@ -1,0 +1,63 @@
+<apex:page controller="ContactDetails"  showHeader="false" sidebar="false">  
+  <apex:stylesheet value="{!$Resource.customstylecss}" />
+    <apex:form id="theForm">
+<html>
+<body>
+    <div id="header">
+        <h2>MyShops</h2>
+         <ul>
+            <li><a class="active" href="https://locationapp-dev-ed.my.salesforce.com/apex/Home">Home</a></li>
+            <li><a href="https://locationapp-dev-ed.my.salesforce.com/apex/contactsVf">Contacts</a></li>
+            <li><a href="https://locationapp-dev-ed.my.salesforce.com/apex/CasesVf">MyQueries</a></li>
+            <apex:commandButton action="{!logOut}" value="Logout" id="button" style="float:right;padding:15px 20px;color:blue"/ >
+        </ul>
+    </div>
+    
+<apex:pageBlock title="Profile Details">
+  <apex:pageBlockSection >
+       <apex:inputField value="{!con.Id}" style="color:#990033"/><br/>  
+       
+          
+       <apex:outputField value="{!con.Title}"><br/>
+        <apex:inlineEditSupport event="ondblClick" />
+       </apex:outputField><br/>
+       
+       
+       <apex:outputField value="{!con.Name}"><br/>
+        <apex:inlineEditSupport event="ondblClick" />
+        </apex:outputField><br/>
+       
+       <apex:outputField value="{!con.Phone}"><br/>
+        <apex:inlineEditSupport event="ondblClick" />
+        </apex:outputField><br/>
+       
+        <apex:outputField value="{!con.Email}"><br/>
+        <apex:inlineEditSupport event="ondblClick" />
+        </apex:outputField><br/>
+                    
+        <apex:outputField value="{!con.Department}"><br/>
+        <apex:inlineEditSupport event="ondblClick" />
+        </apex:outputField><br/>
+             
+         <apex:outputField value="{!con.Fax}"><br/>
+        <apex:inlineEditSupport event="ondblClick" />
+        </apex:outputField><br/>
+             
+       <apex:outputField value="{!con.LeadSource}"><br/>
+        <apex:inlineEditSupport event="ondblClick" />
+        </apex:outputField><br/>
+             
+        <apex:outputField value="{!con.Description}"><br/>
+        <apex:inlineEditSupport event="ondblClick" />
+        </apex:outputField><br/>
+              
+  </apex:pageBlockSection>
+</apex:pageBlock>
+<apex:commandButton action="{!updateNow}" value="Update" style="margin-left:25%;color:#800000" />
+<apex:commandButton action="{!cancelNow}" value="Cancel" style="margin-left:5%;color:#800000" /><br/><br/>
+<apex:commandButton action="{!goback}" value="GoBack Here" style="color:#800000;padding:8px 8px"/>   
+  </body>
+</html>
+</apex:form><br/>
+ <div id="footer">Copyright © 2010-2016 myshops.com</div>
+</apex:page>

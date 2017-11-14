@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <webLinks>
+        <fullName>Connect_Meeting</fullName>
+        <availability>online</availability>
+        <description>Initiate a CYR Meeting.</description>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Meeting</masterLabel>
+        <openType>sidebar</openType>
+        <page>Connect_Meeting</page>
+        <protected>false</protected>
+    </webLinks>
+</CustomObject>

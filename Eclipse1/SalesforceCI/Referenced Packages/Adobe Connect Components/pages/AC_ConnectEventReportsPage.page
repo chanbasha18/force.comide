@@ -1,0 +1,163 @@
+<!--
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+*  Copyright [first year code created] Adobe Systems Incorporated
+*  All Rights Reserved.
+*
+* NOTICE:  All information contained herein is, and remains
+* the property of Adobe Systems Incorporated and its suppliers,
+* if any.  The intellectual and technical concepts contained
+* herein are proprietary to Adobe Systems Incorporated and its
+* suppliers and are protected by all applicable intellectual property 
+* laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe Systems Incorporated.
+**************************************************************************/
+-->
+
+<apex:page controller="esync_adobe.AC_ConnectEventReportsController" action="{!checkRedirect}" tabStyle="Adobe_Connect__tab">
+    <script type="text/javascript">
+        function selectAllCheckBoxToggled(obj,receivedInputId)
+        {
+            var inputCheckBox = document.getElementsByTagName('input');
+            for(var i=0; i<inputCheckBox.length; i++)
+            {
+                if(inputCheckBox[i].id.indexOf(receivedInputId) != -1)
+                {
+                    inputCheckBox[i].checked = obj.checked;
+                }
+            }
+        }
+        
+    </script>
+    <apex:form >
+        <apex:sectionHeader title="{!eventDetails.name}"/>
+        <div style="clear:both">
+            <apex:commandLink action="{!goBack}" value="<< Back to Events List" style="color:#015ba7;text-decoration:none;font-weight:bold;"/>
+            <apex:commandButton value="Log Out" action="{!logout}" style="float:right"/>
+        </div>
+        <br/>
+        <apex:pagemessages rendered="{!isCancelledEvent || attendeesAddedToSFDC}"/>
+        <br/>
+        <apex:PageBlock title="Event Details" rendered="{!isCancelledEvent==false}">
+            <apex:PageBlockSection >
+                <apex:pageBlockSectionItem >
+                <apex:outputLabel style="font-weight:800" value="Event Name "/>
+                <apex:outputText value="{!eventDetails.name}"/>    
+            </apex:pageBlockSectionItem>    
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel style="font-weight:800" value="Event URL "/>
+                <apex:outputLink value="{!eventDetails.url}">{!eventDetails.url}</apex:outputLink>    
+            </apex:pageBlockSectionItem>   
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel style="font-weight:800" value="Start Time "/>
+                <apex:outputText value="{!eventDetails.startDateString}"/>    
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel style="font-weight:800" value="End Time "/>
+                <apex:outputText value="{!eventDetails.endDateString}"/>
+            </apex:pageBlockSectionItem> 
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel style="font-weight:800" value="Speaker Name "/>
+                <apex:outputText value="{!eventDetails.speakerName}"/>
+            </apex:pageBlockSectionItem>      
+           <apex:pageBlockSectionItem >
+                <apex:outputLabel style="font-weight:800" value="Event Information "/>
+                <apex:outputText value="{!eventDetails.eventInformation}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel style="font-weight:800" value="Speaker Overview "/>
+                <apex:outputText value="{!eventDetails.speakerOverview}"/>
+            </apex:pageBlockSectionItem>
+        </apex:PageBlockSection> 
+    </apex:PageBlock>
+  
+    <apex:pageBlock title="User Reports" rendered="{!isCancelledEvent==false}">
+         <apex:Pagemessages rendered="{!isCancelledEvent}"/>
+        <Apex:pageblockSection columns="2" collapsible="false" title="List of users associated with this event. Click on the name to see detailed reports for the individual user. You can also select multiple users and create new Leads and Contacts.">
+            <apex:pageblocksectionItem dataStyle="width:55%">
+            <apex:pageBlockSection columns="1" id="usersList">
+            <apex:pageBlockTable value="{!eventParticipants}" var="u" >
+                <apex:Column >
+                    <apex:facet name="header">
+                         <apex:inputCheckbox onclick="selectAllCheckBoxToggled(this,'selectedCheckBox')" value="{!selectAllCheckBoxState}"/>
+                      </apex:facet>
+                    <apex:inputcheckbox value="{!u.selected}" id="selectedCheckBox"/>
+                </apex:Column>
+                <apex:Column >
+                    <apex:facet name="header">Name</apex:facet>
+                    <apex:commandLink value="{!u.participant.name}" action="{!showUserDetailedReport}" reRender="userInfoPanel" status="userInfoPanelStatus">
+                        <apex:param name="principalId" value="{!u.participant.principalId}"/>
+                    </apex:commandLink>
+                </apex:Column>
+                <apex:Column >
+                    <apex:facet name="header">Login</apex:facet>
+                        <apex:outputText value="{!u.participant.login}"/>
+                </apex:Column>
+                <apex:Column >
+                    <apex:facet name="header">Attendance Status</apex:facet>
+                    <apex:outputText value="{!u.participant.attendanceStatus}"/>
+                </apex:Column>
+                <apex:Column >
+                    <apex:facet name="header">Connect Qualified Lead</apex:facet>
+                    <apex:outputText value="{!u.participant.isLead}"/>
+                </apex:Column>
+            </apex:pageBlockTable>
+            <apex:panelGrid columns="5">
+                        <apex:outputLabel style="padding-right:10px">{!'Page '+pageNumber + ' of '+pageCount}</apex:outputLabel>
+                        <apex:commandLink style="padding-right:10px" action="{!first}" rerender="usersList" rendered="{!hasPrevious}">First</apex:commandlink>
+                        <apex:commandLink style="padding-right:10px" action="{!previous}" rendered="{!hasPrevious}" rerender="usersList">Previous</apex:commandlink>
+                        <apex:commandLink style="padding-right:10px" action="{!next}" rendered="{!hasNext}" rerender="usersList">Next</apex:commandlink>
+                        <apex:commandLink style="padding-right:10px" action="{!last}" rerender="usersList" rendered="{!hasNext}">Last</apex:commandlink>
+                    </apex:panelGrid>
+           </apex:pageBlockSection>
+            
+        </apex:pageblocksectionItem>
+        <apex:pageblocksectionItem dataStyle="width:55%;padding-left:25px;"  >
+            <apex:outputPanel id="userInfoPanel">
+                <apex:actionStatus id="userInfoPanelStatus">
+                    <apex:facet name="start">
+                        <apex:image value="{!$Resource.esync_adobe__spinnerImage}"/>
+                    </apex:facet>
+                    <apex:facet name="stop">
+                        <apex:outputPanel rendered="{!NOT(selectedUser == null)}">
+                            <apex:outputLabel style="font-weight:800;font-size:16px" value=" {!selectedUser.name}"/>
+                            <br/><br/>
+                            <apex:pageblockSection >
+                                <apex:pageblockSectionItem >
+                                    <apex:outputLabel value="First Login Time : "/>
+                                    <apex:outputText value="{!selectedUser.firstInTime}"/>
+                                </apex:pageblockSectionItem>
+                                <apex:pageblockSectionItem >
+                                    <apex:outputLabel value="Last Logout Time : "/>
+                                    <apex:outputText value="{!selectedUser.lastInTime}"/>
+                                </apex:pageblockSectionItem>
+                                <apex:pageblockSectionItem >
+                                    <apex:outputLabel value="Registration Time : "/>
+                                    <apex:outputText value="{!selectedUser.registrationTime}"/>
+                                </apex:pageblockSectionItem>
+                                    <apex:pageblockSectionItem >
+                                        <apex:outputLabel value="Duration : "/>
+                                        <apex:outputText value="{!selectedUser.duration}"/>
+                                </apex:pageblockSectionItem>
+                            </apex:pageblockSection>
+                            <apex:dynamicComponent componentValue="{!regQuestions}"/>
+                            <apex:dynamicComponent componentValue="{!pollResponses}"/>
+                        </apex:outputPanel>
+                    </apex:facet>
+                </apex:actionStatus>
+            </apex:outputPanel>
+        </apex:pageblocksectionItem>
+    </apex:pageblockSection>
+    <apex:pageBlockButtons >
+        <apex:commandLink action="{!downloadCSVReport}" style="text-decoration:none !important" target="_blank">
+            <apex:commandButton value="Download all as CSV"/>
+        </apex:commandLink>
+        <apex:commandButton value="Add selected to Salesforce" action="{!addToSalesforce}"/>
+    </apex:pageBlockButtons>
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

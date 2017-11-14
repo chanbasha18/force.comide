@@ -1,0 +1,95 @@
+<!--
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+*  Copyright [first year code created] Adobe Systems Incorporated
+*  All Rights Reserved.
+*
+* NOTICE:  All information contained herein is, and remains
+* the property of Adobe Systems Incorporated and its suppliers,
+* if any.  The intellectual and technical concepts contained
+* herein are proprietary to Adobe Systems Incorporated and its
+* suppliers and are protected by all applicable intellectual property 
+* laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe Systems Incorporated.
+**************************************************************************/
+-->
+
+<apex:page Controller="esync_adobe.AC_ConnectEventDetailsController" action="{!checkRedirect}" tabStyle="Adobe_Connect__tab">
+    <apex:form >
+      <apex:sectionHeader title="{!eventDetails.name}"/>
+      <div style="clear:both">
+          <apex:commandLink action="{!goBack}" value="<< Back to Events List" style="color:#015ba7;text-decoration:none;font-weight:bold;"/>
+          <apex:commandButton value="Log Out" action="{!logout}" style="float:right"/>
+      </div>
+      <br/>
+      <apex:pagemessages />
+      <br/>
+      <apex:PageBlock title="Event Details" rendered="{!isCancelledEvent == false}">
+            <apex:PageBlockSection >
+      
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel style="font-weight:800" value="Event Name "/>
+                    <apex:outputText value="{!eventDetails.name}"/>    
+                </apex:pageBlockSectionItem>    
+      
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel style="font-weight:800" value="Event URL "/>
+                    <apex:outputLink value="{!eventDetails.url}">{!eventDetails.url}</apex:outputLink>    
+                </apex:pageBlockSectionItem>   
+      
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel style="font-weight:800" value="Start Time "/>
+                    <apex:outputText value="{!eventDetails.startDateString}"/>    
+                </apex:pageBlockSectionItem>
+      
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel style="font-weight:800" value="End Time "/>
+                    <apex:outputText value="{!eventDetails.endDateString}"/>
+                </apex:pageBlockSectionItem> 
+      
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel style="font-weight:800" value="Speaker Name "/>
+                    <apex:outputText value="{!eventDetails.speakerName}"/>
+                </apex:pageBlockSectionItem>      
+      
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel style="font-weight:800" value="Speaker Overview "/>
+                    <apex:outputText value="{!eventDetails.speakerOverview}"/>
+                </apex:pageBlockSectionItem>
+      
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel style="font-weight:800" value="Event Information "/>
+                    <apex:outputText value="{!eventDetails.eventInformation}"/>
+                </apex:pageBlockSectionItem>
+      
+            </apex:PageBlockSection> 
+        </apex:PageBlock>
+  
+        <apex:PageBlock title="Event User List" rendered="{!isCancelledEvent == false}">
+            <apex:pageBlockSection collapsible="false" columns="1" title="List of users invited for this event. You may invite additional users from your Leads and Contacts.">
+                <apex:pageBlockTable value="{!eventDetails.eventParticipants}" var="u" rowClasses="odd,even" styleClass="tableClass">
+                    <apex:Column >
+                        <apex:facet name="header">Name</apex:facet>
+                        <apex:outputText value="{!u.name}"/>
+                    </apex:Column>
+                    <apex:Column >
+                        <apex:facet name="header">Login</apex:facet>
+                        <apex:outputText value="{!u.login}"/>
+                    </apex:Column>
+                    <apex:Column >
+                        <apex:facet name="header">Status</apex:facet>
+                        <apex:outputText value="{!u.permission}"/>
+                    </apex:Column>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Invite Leads" action="{!addLeads}"/>
+                <apex:commandButton value="Invite Contacts" action="{!addContacts}"/>
+            </apex:pageBlockButtons>
+        </apex:PageBlock>
+    </apex:form>
+</apex:page>

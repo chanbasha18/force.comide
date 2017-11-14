@@ -1,0 +1,28 @@
+<apex:page controller="ContactCaseDetails" showHeader="false" sidebar="false"> 
+<apex:stylesheet value="{!$Resource.customstylecss}" />    
+<html>
+<body>
+    <apex:form id="theForm">
+    <div id="header">       
+        <h1><b>MyShops</b></h1>        
+        <ul>
+            <li><a class="active" href="https://locationapp-dev-ed.my.salesforce.com/apex/Home">Home</a></li>
+            <li><a href="https://locationapp-dev-ed.my.salesforce.com/apex/contactsVf">Contacts</a></li>
+            <li><a href="https://locationapp-dev-ed.my.salesforce.com/apex/CasesVf">MyQueries</a></li>
+            <apex:commandButton action="{!cas}" value="Logout" id="button" style="float:right;padding:15px 20px;color:blue"/>
+       </ul>
+    </div>
+
+
+<apex:pageBlock title="Query Related Information">
+
+<apex:commandButton action="{!submit}" value="Submit Query" style="padding:8px 8px;margin-left:12%;color:#800000"/>
+ <apex:commandButton action="{!view}" value="View Queries" style="padding:8px 8px;margin-left:15%;color:#800000"/>
+ </apex:pageBlock> 
+ </apex:form>
+ <div id="footer">
+    Copyright © 2010-2016 myshops.com
+</div>
+ </body>
+</html>
+</apex:page>

@@ -1,0 +1,18 @@
+<apex:page sidebar="false" showHeader="false">
+ 
+    <apex:includeLightning />
+    
+    
+     <div id="PortalContainer" />
+     
+       <script>
+           $Lightning.use("c:PortalApp",function() {
+           $Lightning.createComponent("c:Portal",{},"PortalContainer",
+           function(cmp) {
+           
+            console.log('Component created, do something cool here');
+           });
+     });
+       </script>
+       
+</apex:page>

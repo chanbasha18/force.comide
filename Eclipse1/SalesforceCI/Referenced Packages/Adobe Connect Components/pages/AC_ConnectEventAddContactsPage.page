@@ -1,0 +1,122 @@
+<!--
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+*  Copyright [first year code created] Adobe Systems Incorporated
+*  All Rights Reserved.
+*
+* NOTICE:  All information contained herein is, and remains
+* the property of Adobe Systems Incorporated and its suppliers,
+* if any.  The intellectual and technical concepts contained
+* herein are proprietary to Adobe Systems Incorporated and its
+* suppliers and are protected by all applicable intellectual property 
+* laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe Systems Incorporated.
+**************************************************************************/
+-->
+
+<apex:page controller="esync_adobe.AC_ConnectEventAddContactController" action="{!checkRedirect}" tabStyle="Adobe_Connect__tab">
+    <script type="text/javascript">
+        function selectAllCheckBoxToggled(obj,receivedInputId)
+        {
+            var inputCheckBox = document.getElementsByTagName('input');
+            for(var i=0; i<inputCheckBox.length; i++)
+            {
+                if(inputCheckBox[i].id.indexOf(receivedInputId) != -1)
+                {
+                    inputCheckBox[i].checked = obj.checked;
+                }
+            }
+        }
+        
+    </script>
+    <apex:form >       
+        <apex:sectionHeader title="{!eventName}"/>
+        <div style="clear:both">
+            <apex:commandLink action="{!goBack}" value="<< Back to Event Details : {!eventName}" style="color:#015ba7;text-decoration:none;font-weight:bold;"/>
+            <apex:commandButton value="Log Out" action="{!logout}" style="float:right"/>
+        </div>
+        <br/><br/>
+        <apex:pageBlock title="Add Contacts" id="mainPageBlock">
+            <apex:pageblocksection columns="1" id="pageMessages">
+                <apex:pagemessages />
+            </apex:pageblocksection>
+            <apex:actionFunction name="filterContacts" action="{!filterContacts}" rerender="contactsList,pageMessages,pageNavigation"/>
+            <apex:pageblockSection title="Filter Contacts" id="contactFilter">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Name"/>
+                    <apex:inputText value="{!filterName}" onKeyup="filterContacts();"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Account"/>
+                    <apex:inputText value="{!filterAccount}" onKeyup="filterContacts();"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Email"/>
+                    <apex:inputText value="{!filterEmail}" onKeyup="filterContacts();"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Title"/>
+                    <apex:inputText value="{!filterTitle}" onKeyup="filterContacts();"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageblockSection>
+            <br/>
+            <apex:pageBlockSection columns="1" id="contactsList">
+                <apex:pageblockTable value="{!contacts}" var="c" styleClass="tableClass">
+                    <apex:Column >
+                      <apex:facet name="header">
+                         <apex:inputCheckbox onclick="selectAllCheckBoxToggled(this,'selectedCheckBox')" value="{!selectAllCheckBoxState}"/>
+                      </apex:facet>
+                      <apex:inputcheckbox value="{!c.selected}" id="selectedCheckBox"/>
+                    </apex:Column>
+                    <apex:Column >
+                      <apex:facet name="header">Name</apex:facet>
+                      <apex:outputLink value="{!URLFOR($Action.Contact.View,c.con.id)}" target="_blank"> {!c.con.name}</apex:outputLink>
+                    </apex:Column>
+                    <apex:Column >
+                      <apex:facet name="header">Account</apex:facet>
+                      <apex:outputLink value="{!IF(ISNULL(c.con.Account),'',URLFOR($Action.Account.View,c.con.Account.Id))}" target="_blank"> {!c.con.Account.Name}</apex:outputLink>
+                    </apex:Column>
+                    <apex:Column >
+                      <apex:facet name="header">Title</apex:facet>
+                     <apex:outputText value="{!c.con.Title}"/>
+                    </apex:Column>
+                    <apex:Column >
+                      <apex:facet name="header">Department</apex:facet>
+                     <apex:outputText value="{!c.con.Department}"/>
+                    </apex:Column>
+                    <apex:Column >
+                      <apex:facet name="header">Lead Source</apex:facet>
+                     <apex:outputText value="{!c.con.LeadSource}"/>
+                    </apex:Column>
+                    <apex:Column >
+                      <apex:facet name="header">Email</apex:facet>
+                      <apex:outputLink value="{!'mailto:'+c.con.Email}" target="_blank"> {!c.con.Email}</apex:outputLink>
+                    </apex:Column>
+                    <apex:Column >
+                      <apex:facet name="header">Phone</apex:facet>
+                     <apex:outputText value="{!c.con.Phone}"/>
+                    </apex:Column>
+                </apex:pageblockTable>
+            </apex:pageBlockSection>
+                <apex:pageblockSection id="pageNavigation">
+                    <apex:panelGrid columns="5">
+                        <apex:outputLabel style="padding-right:10px">{!'Page '+pageNumber+' of '+pageCount}</apex:outputLabel>
+                        <apex:commandLink style="padding-right:10px" action="{!first}" reRender="contactsList,pageMessages,pageNavigation" rendered="{!hasPrevious}">First</apex:commandlink>
+                        <apex:commandLink style="padding-right:10px" action="{!previous}" rendered="{!hasPrevious}" reRender="contactsList,pageMessages,pageNavigation">Previous</apex:commandlink>
+                        <apex:commandLink style="padding-right:10px" action="{!next}" rendered="{!hasNext}" reRender="contactsList,pageMessages,pageNavigation">Next</apex:commandlink>
+                        <apex:commandLink style="padding-right:10px" action="{!last}" reRender="contactsList,pageMessages,pageNavigation" rendered="{!hasNext}">Last</apex:commandlink>
+                    </apex:panelGrid>
+                </apex:pageblockSection>
+                <apex:pageBlockButtons >
+                    <apex:commandButton value="Add Selected" action="{!addSelected}"/>
+                    <apex:commandButton value="Clear Filters" action="{!clearFilters}" rerender="mainPageBlock"/>
+                </apex:pageBlockButtons>
+                <!--Workaround to keep PageblockSection Collapsed by default-->
+                <!--<script> twistSection(document.getElementById('{!$Component.mainPageBlock.contactFilter}').getElementsByTagName('img')[0]) </script>-->
+        </apex:pageBlock>
+    </apex:form> 
+</apex:page>

@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>A registration and related attendance data for an Event from Connect Your Salesteam.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Attendance_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The time the user attended the event.</description>
+        <externalId>false</externalId>
+        <label>Attendance Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Attended__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Did the user attend the event?</description>
+        <externalId>false</externalId>
+        <label>Attended</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Cancellation_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>If cancelled, when was it cancelled.</description>
+        <externalId>false</externalId>
+        <label>Cancellation Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Cancelled__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Was this registration cancelled?</description>
+        <externalId>false</externalId>
+        <label>Cancelled</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Certificate_Number__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The certificate number in Connect should the Contact or Lead pass the course, if applicable.</description>
+        <externalId>false</externalId>
+        <label>Certificate Number</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Connect_Event__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The Event the user is registered for.</description>
+        <externalId>false</externalId>
+        <label>Event</label>
+        <referenceTo>Connect_Event__c</referenceTo>
+        <relationshipLabel>Event Registrations</relationshipLabel>
+        <relationshipName>Connect_Registrations</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Contact record this registration belongs to.</description>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipName>Connect_Registrations</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Coupon_Code_Group__c</fullName>
+        <deprecated>false</deprecated>
+        <description>If applicale, what coupon code group does the coupon code belong to.</description>
+        <externalId>false</externalId>
+        <label>Coupon Code Group</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Coupon_Code__c</fullName>
+        <deprecated>false</deprecated>
+        <description>What coupon (if any) was used in this registration.</description>
+        <externalId>false</externalId>
+        <label>Coupon Code</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Coupon_Discount_Amount__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Amount of discount. Examples: &quot;$5.00&quot;, &quot;25%&quot;.</description>
+        <externalId>false</externalId>
+        <label>Coupon Discount Amount</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Course_Complete__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Set if the user passed the piece of content, if applicable.</description>
+        <externalId>false</externalId>
+        <label>Course Complete</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Lead__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Lead</label>
+        <referenceTo>Lead</referenceTo>
+        <relationshipName>Connect_Registrations</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Paid_Amount__c</fullName>
+        <deprecated>false</deprecated>
+        <description>How much money was paid by the registrant for this event (after any applicable discount).</description>
+        <externalId>false</externalId>
+        <label>Paid Amount</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Paypal_Transaction_ID__c</fullName>
+        <deprecated>false</deprecated>
+        <description>If applicable, the Paypal Transaction ID associated with the payment for this registration.</description>
+        <externalId>false</externalId>
+        <label>Paypal Transaction ID</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Registration_Answers__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Answers to any custom questions from the registration form.</description>
+        <externalId>false</externalId>
+        <label>Registration Answers</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Registration_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The time the user registered for the event.</description>
+        <externalId>false</externalId>
+        <label>Registration Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Registration_ID__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <deprecated>false</deprecated>
+        <description>Unique ID of record in Connect Your Salesteam.</description>
+        <externalId>true</externalId>
+        <label>CYSID</label>
+        <length>27</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Score__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The score the Contact or Lead achieved on this events content, if applicable.</description>
+        <externalId>false</externalId>
+        <label>Score</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Event Registration</label>
+    <nameField>
+        <displayFormat>CYS{000000}</displayFormat>
+        <label>Event Registration Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Event Registrations</pluralLabel>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>Connect_Event__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Registration_Date__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Attended__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Attendance_Date__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Connect_Event__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Registration_Date__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Attended__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Attendance_Date__c</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Connect_Event__c</searchFilterFields>
+        <searchFilterFields>Registration_Date__c</searchFilterFields>
+        <searchFilterFields>Attended__c</searchFilterFields>
+        <searchFilterFields>Attendance_Date__c</searchFilterFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

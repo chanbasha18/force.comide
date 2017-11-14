@@ -1,0 +1,1200 @@
+﻿<apex:page Controller="cysent.CYSTrainingCatalogController" tabStyle="cysent__Training_Enrollment__c">
+<head>
+<!-- 
+<apex:stylesheet value="/sCSS/21.0/sprites/1297816277000/Theme3/default/gc/versioning.css" />   
+<apex:stylesheet value="/sCSS/21.0/sprites/1297816277000/Theme3/default/gc/extended.css" />﻿
+ -->
+  
+
+        <!-- Include the Jquery Script files -->
+        <apex:includeScript value="{!URLFOR($Resource.cysent__Jtreeview,'jquery-1.9.1.min.js')}"  />
+        <script src="{!URLFOR($Resource.Jtreeview,'jquery.cookie.js')}" type="text/javascript"></script>
+        <script src="{!URLFOR($Resource.Jtreeview,'jquery.treeview.js')}" type="text/javascript"></script>
+    <!-- End of Javascript files -->
+    
+</head> 
+
+  
+<link rel="stylesheet" href="{!URLFOR($Resource.CYSCSSZIP,'cysf-sf.css')}"/>
+        <link rel="stylesheet" href="{!URLFOR($Resource.Jtreeview,'jquery.treeview.css')}"/>
+
+
+<style type="text/css">     
+
+        td.theTabPanel.rich-tab-header {
+        padding:10px 14px 7px 14px;
+        font-family: Arial,Helvetica,sans-serif;
+        font-weight:bold;
+        font-size:13px;
+        color:#333;
+        -webkit-border-radius: 7px 7px 0px 0px; border-radius:7px 7px 0px 0px;
+        cursor: pointer;
+
+        }
+        #cyscss ul,
+        #cyscss li {
+            list-style-type: none;
+        }
+        #cyscss .categoryBrowse ul.eventsList li span {
+            padding-left:0;
+        }
+
+        #cyscss .categoryBrowse ul.eventsList li span.courseIcon,
+        #cyscss .categoryBrowse ul.eventsList li span.courseName {
+            padding-left:10px;
+        }
+
+        #cyscss .categoryBrowse li.level0 ul.eventsList li { 
+            width:95%;
+            margin-bottom:10px;
+            
+            -webkit-border-radius: 7px 0px 7px 7px; border-radius:7px 0px 7px 7px;
+            
+            min-width:600px;
+            
+            
+            margin-left:15px;
+            width:93%;
+
+            
+        }
+        #cyscss .categoryBrowse .category-tag-sort {
+            width:95%;
+            -webkit-border-radius: 7px 7px 0px 0px; border-radius:7px 7px 0px 0px;
+
+        }
+        #cyscss .categoryBrowse li.collapsed .category-tag-sort {
+            -webkit-border-radius: 7px 7px 7px 7px; border-radius:7px 7px 7px 7px;
+            
+            
+            
+        }
+
+        #cyscss .categoryBrowse ul.eventsList a.eventReg {
+            text-decoration:none;
+            color:white;
+            background-color:#E49A00;
+            
+            background-color:#2A9A00;
+        }
+        #cyscss .categoryBrowse ul.eventsList a.eventReg:hover {
+            background-color:#E49A00;
+            background-color:#2A9A00;
+        }
+        #cyscss .categoryBrowse ul.eventsList .eventReg {
+            background-color:#E49A00;
+            border:1px solid #cccccc;
+            color:white;
+            cursor:pointer;
+            width:80px;
+            text-align:center;
+            -webkit-border-radius:4px;
+            border-radius:4px;
+            margin:20px auto 20px auto;
+            padding:7px;
+            
+            float:left;
+            background-color:#2A9A00;
+        }
+        
+        #cyscss .categoryBrowse ul.eventsList .eventReg.completed {
+            background-color:#3377EE;
+            background-color:#E49A00;
+        }
+        #cyscss .categoryBrowse ul.eventsList .eventReg.completed:hover {
+            background-color:#5599ff;
+            background-color:#E49A00;
+        }
+                
+        #cyscss .eventShortDesc {
+            clear:left;
+        }
+        
+        
+        #cyscss .eventTitle {
+            clear:both;
+            width:100%;
+            border-bottom:1px solid #bbbbbb;
+            padding:0px 0px 0px 0px;
+        }
+        #cyscss .eventTitle .courseIcon {
+            background:#3377EE;
+            color:white;
+            width:100px;
+            padding:5px 10px 10px 15px;
+            margin-right:0px;
+            float:left;
+            width:100px;
+            height:15px;
+        }
+        #cyscss .eventTitle .courseName {
+            padding-top:5px;
+            float:left;
+            font-size:16px;
+            color:#444;
+        }
+        #cyscss .category-tag-sort {
+            padding:0;
+        }
+        #cyscss ul.categoryBrowse .label {
+            padding-left:15px;
+        }
+        #cyscss .categoryBrowse ul.eventsList li {
+            margin-left:0px;
+        }
+        #cyscss .categoryBrowse ul.eventsList .eventDetails {
+            padding-left:0px;
+            width:100%;
+            padding-top:0px;
+        }
+        
+        #cyscss .completionBox .completeLabel {
+            color:#666;
+            clear:left;
+            float:left;
+            font-weight:bold;
+        }
+        #cyscss .completionBox .completeData {
+            color:black;
+            clear:left;
+            float:left;
+            font-weight:bold;
+            
+        }
+        
+        #cyscss .categoryBrowse ul.eventsList .eventShortDesc {
+            display:inline;
+        }
+        #cyscss .categoryBrowse ul.eventsList  .progressFull {
+            width:17px;
+            height:17px;
+            margin:2px;
+            background-image:url(<apex:outputText value="{!URLFOR($Resource.cysent__CYSCSSZIP,'progress-full.gif')}"/> );
+            background-repeat:no-repeat;
+            float:left;
+            padding:0;
+        }
+        #cyscss .categoryBrowse ul.eventsList  .progressEmpty {
+            width:17px;
+            height:17px;
+            margin:2px;
+            background-image:url(<apex:outputText value="{!URLFOR($Resource.cysent__CYSCSSZIP,'progress-empty.gif')}"/> );
+            background-repeat:no-repeat;
+            float:left;
+            padding:0;
+        }
+        #cyscss .categoryBrowse ul.eventsList li span .progressText {
+            float:left;
+            clear:left;
+            width:100%;
+            text-align:center;
+        }
+        #cyscss #contentwrapper{
+            float: left;
+            width:60%;
+        }
+
+        #cyscss .categoryBrowse ul.eventsList li span.progressBarContainer {
+            float:left;
+            padding-left:5px;
+        }
+        
+        #cyscss .progressBox {
+            width:100px; 
+            float:left;
+            clear:left;
+            padding-left:15px;
+            padding-right:10px;
+            padding-top:20px;
+        }
+        
+        #cyscss .completionBox {
+            width:100px; 
+            float:right;
+            clear:none;
+            padding-left:15px;
+            padding-right:10px;
+            padding-top:20px;
+
+            width:14%;
+        }       
+        
+        #cyscss .eventShortDesc {
+            float:left;
+            clear:none;
+            margin-top:10px;
+            margin-left:15px;
+            font-size:14px;
+            font-family:Arial;
+            margin-left:0;
+    
+            margin-right:0;
+        }
+
+        #cyscss .description {
+            clear:left;
+            float:left;
+            font-size:14px;
+            margin-bottom:10px;
+            font-family:Arial;
+        }       
+        #cyscss ul.categoryBrowse  .bodyData {
+            clear:left;
+            float:left;
+            margin-bottom:4px;
+            font-size:12px;
+            font-family:Arial;
+        }
+        
+        #cyscss ul.categoryBrowse .bodyData .label {
+            font-weight:bold;
+            font-size:12px;
+            font-family:Arial;
+        }
+        
+        #cyscss ul.categoryBrowse .bodyData .data {
+            font-style:italic;
+            font-size:12px;
+            font-family:Arial;
+        }
+        
+        #cyscss ul.categoryBrowse ul {
+            background:none;
+        }
+        
+        #cyscss .categoryBrowse ul.eventsList .eventReg.enrol {
+        
+            background-color:#333333;
+        }
+        
+        #cyscss .categoryBrowse ul.eventsList a.eventReg.enrol {
+            text-decoration:none;
+            color:white;
+            background-color:#333333;
+        }
+        #cyscss .categoryBrowse ul.eventsList a.eventReg.enrol:hover {
+            background-color:#333333;
+            color:#ffff77;
+        }
+                
+        #cyscss #overlay {
+         
+             position: absolute;
+             left: 0px;
+             top: 0px;
+             width:100%;
+             height:100%;
+             text-align:center;
+             z-index: 1000;
+             position:fixed;
+        }
+        
+        #cyscss #overlay div {
+             width:300px;
+             margin: 100px auto;
+             background-color: #ffffaa;
+             border:3px solid #aaa;
+             padding:15px;
+             text-align:center;
+             font-size:14px;
+             font-family:Arial;
+        }
+
+
+        #cyscss .resultMessage {
+            
+            float:none;
+            padding:15px;
+            -webkit-border-radius:5px;
+            border-radius:5px;
+            background:#ffff99;
+            color:black;
+            font-size:14px;
+            border: 2px solid #aaaa55;
+            display:block;
+            width:200px;
+            margin: 10px auto 5px auto;
+            text-align:center;
+        }
+        
+        #cyscss .resultMessage.wide {
+            width:400px;
+        }
+
+
+        #cyscss .viewCatalog {
+            margin: 10px auto 5px auto;
+            text-align:center;
+            width:100%;
+            float:left;
+            font-size: 16px;
+        }
+        
+        #cyscss .categoryBrowse {
+            display:none;
+        }
+
+        #cyscss .categoryBrowse.show {
+            display:block;
+        }
+
+
+</style>
+
+
+<script type="text/javascript">
+    var j$ = jQuery.noConflict();   //needed so tabPanel still works!
+    
+
+    j$(function() {
+
+        j$(".categoryBrowse.mylearning li div" ).click(function() {
+
+            var catid=j$(this).find(':input').val();
+             
+            if (j$(this).parent('li').hasClass('collapsed')) {
+                j$(this).parent('li').removeClass('collapsed');
+            } else {
+                j$(this).parent('li').addClass('collapsed');
+            }           
+            
+            var catString='';
+            j$(".categoryBrowse.mylearning li.collapsed").each( function (index){
+                var thisCat=j$(this).find(':input').val();
+                var thisId=j$(this).find(':input').attr('id');
+                var thisIdTrim=thisId.substr(thisId.length-5,thisId.length);
+                if (thisCat!==undefined && thisIdTrim=='catid')
+                    catString+=thisCat+'|';
+            } );
+
+            updateMyLearningCollapsed(catString);
+        }
+        );
+
+        j$(".categoryBrowse.catalog li div" ).click(function() {
+            var catid=j$(this).find(':input').val(); 
+
+            if (j$(this).parent('li').hasClass('collapsed')) {
+                j$(this).parent('li').removeClass('collapsed');
+            } else {
+                j$(this).parent('li').addClass('collapsed');
+            }           
+
+            var catString='';
+            j$(".categoryBrowse.catalog li.collapsed").each( function (index){
+                var thisCat=j$(this).find(':input').val();
+                var thisId=j$(this).find(':input').attr('id');
+                var thisIdTrim=thisId.substr(thisId.length-5,thisId.length);
+                if (thisCat!==undefined && thisIdTrim=='catid')
+                    catString+=thisCat+'|';
+            } );
+            
+            updateCatalogCollapsed(catString);
+        }
+        );
+
+        j$(".categoryBrowse.completed li div" ).click(function() {
+            var catid=j$(this).find(':input').val(); 
+
+            if (j$(this).parent('li').hasClass('collapsed')) {
+                j$(this).parent('li').removeClass('collapsed');
+            } else {
+                j$(this).parent('li').addClass('collapsed');
+            }           
+            var catString='';
+            j$(".categoryBrowse.completed li.collapsed").each( function (index){
+                var thisCat=j$(this).find(':input').val();
+                var thisId=j$(this).find(':input').attr('id');
+                var thisIdTrim=thisId.substr(thisId.length-5,thisId.length);
+                if (thisCat!==undefined && thisIdTrim=='catid')
+                    catString+=thisCat+'|';
+            } );
+            
+            updateCompletedCollapsed(catString);
+        }
+        );
+
+        //j$('li.level0').addClass('collapsed');
+        //j$('li.level1').addClass('collapsed');
+        //j$('li.level2').addClass('collapsed');
+
+    
+        j$('#cyscss .categoryBrowse').show();
+        
+        var learningCollapseString='<apex:outputText value="{!configTrainingCollapsedString}" />';
+        if (learningCollapseString=='') {
+            j$('li.level0').addClass('collapsed');
+            j$('li.level1').addClass('collapsed');
+            j$('li.level2').addClass('collapsed');
+        } else { 
+            var stringParts=learningCollapseString.split("|");
+            for (var i=0; i<stringParts.length; i++) {
+                var obj = j$(".categoryBrowse.mylearning .category-tag-sort .label").find("input[value='"+stringParts[i]+"']");
+                j$(obj).parent().parent().parent().addClass('collapsed');
+            }
+        }
+
+        
+        var catalogCollapseString='<apex:outputText value="{!configCatalogCollapsedString}" />';
+        if (catalogCollapseString=='') {
+            j$('li.level0').addClass('collapsed');
+            j$('li.level1').addClass('collapsed');
+            j$('li.level2').addClass('collapsed');
+        } else { 
+            var stringParts=catalogCollapseString.split("|");
+            for (var i=0; i<stringParts.length; i++) {
+                var obj = j$(".categoryBrowse.catalog .category-tag-sort .label").find("input[value='"+stringParts[i]+"']");
+                j$(obj).parent().parent().parent().addClass('collapsed');
+            }
+        }
+        var completedCollapseString='<apex:outputText value="{!configCompletedCollapsedString}" />';
+        if (completedCollapseString=='') {
+            j$('li.level0').addClass('collapsed');
+            j$('li.level1').addClass('collapsed');
+            j$('li.level2').addClass('collapsed');
+        } else { 
+            var stringParts=completedCollapseString.split("|");
+            for (var i=0; i<stringParts.length; i++) {
+                var obj = j$(".categoryBrowse.completed .category-tag-sort .label").find("input[value='"+stringParts[i]+"']");
+                j$(obj).parent().parent().parent().addClass('collapsed');
+            }
+        }
+        
+        
+    });
+
+    function launchLearningPop(id) {
+            openIntegration('apex/LaunchTraining?scontrolCaching=1&id='+id, 'height=600,location=no,resizable=yes,toolbar=no,status=no,menubar=no,scrollbars=1', 1); 
+    }
+
+
+</script>
+
+<div id="cyscss">
+
+<apex:tabPanel switchType="server" selectedTab="mylearning" id="theTabPanel" 
+    styleClass="theTabPanel" tabClass="theTabPanel" contentClass="tabContent"
+    activeTabClass="activeTab" inactiveTabClass="inactiveTab">
+
+
+
+<apex:tab label="My Learning" name="mylearning" id="tabThree" rendered="{!CategoryMode==TRUE}">
+<apex:form >
+
+    <apex:actionRegion >
+        <apex:actionFunction action="{!myLearningCollapseUpdate}" 
+            name="updateMyLearningCollapsed" reRender="FakePanel1">
+            <apex:param name="myLearningCatString" value="" assignTo="{!myLearningCatString}" />
+        </apex:actionFunction>
+    </apex:actionRegion>
+
+ <apex:outputPanel id="FakePanel1">
+ </apex:outputPanel>
+
+    <ul class="categoryBrowse mylearning">
+    
+    
+    <apex:repeat value="{!allCategories}" var="cat" >
+
+    <apex:repeat value="{!enrollmentsWithCategory}" var="catSFID">
+
+
+    <apex:outputText rendered="{!(catSFID==cat.id) }">
+    
+    <!--  <li>  -->
+
+
+
+    <apex:outputText escape="false" value="<li class=level{!enrollmentsWithCategoryLevel[catSFID]} >" />
+    
+    
+    <apex:outputText rendered="{!(enrollmentsWithCategoryWithChildrenSize[catSFID]>0)}" >
+    
+    <div class="category-tag-sort" style='background-color:{!HTMLENCODE(cat.Color__c)}' >
+    
+    <span class='label'><apex:outputText escape="false" value="{!HTMLENCODE(cat.cysent__Category_Name__c)}" />
+    <apex:inputHidden id="catid" value="{!cat.cysent__External_ID__c}"/>
+    
+
+    <apex:outputText rendered="{!(enrollmentsWithCategorySize[catSFID]>0)}">
+    (<apex:outputText value="{!enrollmentsWithCategorySize[catSFID]}"/>)</apex:outputText>
+    </span>
+        
+    <span class="expandlink"><span>+</span></span>
+
+    
+    </div>
+    
+    </apex:outputText>
+
+    <ul class="eventsList">
+    
+        <apex:repeat value="{!enrollmentsWithCategory[catSFID]}" var="myt">
+        <apex:outputText rendered="{!myt.ComboID__c!='Placeholder'}">
+            <li>
+              <c:TYSEnrolledCourseElement TYSInPopup="{!TYSInPopup}" myt="{!myt}" 
+                HideGrade="{!HideGrade}"
+                HideCertificate="{!HideCertificate}"
+                HideEnrollmentDate="{!HideEnrollmentDate}"
+                />
+            </li>
+        </apex:outputText>
+        </apex:repeat>
+    </ul>
+
+    
+    
+    <apex:outputText rendered="{!enrollmentsWithCategoryLevelNext[catSFID]==enrollmentsWithCategoryLevel[catSFID]}" escape="false" value="</li>" />
+    <apex:outputText rendered="{!enrollmentsWithCategoryLevelNext[catSFID]+1==enrollmentsWithCategoryLevel[catSFID]}" escape="false" value="</ul></li>" />
+    <apex:outputText rendered="{!enrollmentsWithCategoryLevelNext[catSFID]+2==enrollmentsWithCategoryLevel[catSFID]}" escape="false" value="</ul></ul></li></li>" />
+    <apex:outputText rendered="{!enrollmentsWithCategoryLevelNext[catSFID]-1==enrollmentsWithCategoryLevel[catSFID]}" escape="false" value="<ul>" />
+
+
+    <!-- </li> -->
+
+    </apex:outputText>
+    
+    
+    
+    </apex:repeat>
+    </apex:repeat>
+    
+
+    </ul>
+
+
+</apex:form>
+
+</apex:tab>
+
+
+<apex:tab label="Catalog" name="cysCatalog" id="tabFour" rendered="{!HideCatalog==FALSE && CategoryMode==TRUE}">
+<apex:form >
+
+    <apex:actionRegion >
+    <apex:actionFunction action="{!catalogCollapseUpdate}" 
+        name="updateCatalogCollapsed" reRender="FakePanel">
+        <apex:param name="catalogCatString" value="" assignTo="{!catalogCatString}" />
+    </apex:actionFunction>
+    </apex:actionRegion>
+ <apex:outputPanel id="FakePanel">
+ </apex:outputPanel>
+
+    
+    <apex:outputPanel id="LoadingStatusCYS">
+        <apex:actionStatus id="loadStatusStringCYS">
+            <apex:facet name="start">
+                <div id="overlay">
+                <div>
+                    Please wait...<img src="{!$Resource.spinner}"  />
+                </div>
+                </div>
+            </apex:facet>
+        </apex:actionStatus>            
+    </apex:outputPanel>   
+    
+<apex:outputPanel id="CYSEnrolledBlock" >
+
+<script>
+j$('#cyscss .categoryBrowse').show();
+</script>
+    <apex:outputText rendered="{!(justEnrolledID!='')}">
+
+        <apex:variable var="myt" value="{!myEnrollmentsByCourseSFID[justEnrolledID]}"/>
+        
+        <div  class="resultMessage">Successfully Enrolled.</div>
+        
+        <ul class="categoryBrowse show">
+            <li class="level0">
+                <ul class="eventsList">
+                    <li>
+                      <c:TYSEnrolledCourseElement TYSInPopup="{!TYSInPopup}" myt="{!myt}" 
+                        HideGrade="{!HideGrade}"
+                        HideCertificate="{!HideCertificate}"
+                        HideEnrollmentDate="{!HideEnrollmentDate}"
+                      />
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+    <span class="viewCatalog">
+    <a class="" href="javascript:viewCatalog();">View Catalog &raquo;</a>
+                </span>
+    
+
+    </apex:outputText>
+    
+
+<apex:outputText rendered="{!(justEnrolledID=='' && detailString!='')}">
+<div  class="resultMessage wide">
+Unable to enroll. Message from server was: <br/>
+    <apex:outputText value="{!detailString}" />
+</div>
+</apex:outputText>
+
+
+    <apex:outputText rendered="{!(justEnrolledID=='')}">
+
+        <ul class="categoryBrowse catalog">
+         
+        
+        <apex:repeat value="{!allCategories}" var="cat" >
+    
+        <apex:repeat value="{!coursesWithCategory}" var="catSFID">
+    
+        <apex:outputText rendered="{!catSFID==cat.id}">
+        
+        
+        <!--  <li>  -->
+    
+    
+    
+        <apex:outputText escape="false" value="<li class=level{!enrollmentsWithCategoryLevel[catSFID]}>" />
+        
+        
+    <apex:outputText rendered="{!(displayThisCat[catSFID]>0)}">
+        
+        
+        <div class="category-tag-sort" style='background-color:{!HTMLENCODE(cat.Color__c)}'>
+        
+        <span class='label'><apex:outputText escape="false" value="{!HTMLENCODE(cat.cysent__Category_Name__c)}" />
+        <apex:inputHidden id="catid" value="{!cat.cysent__External_ID__c}"/>
+        
+        (<apex:outputText value="{!categoriesWithSize[catSFID]}"/>)</span>
+        <span class="expandlink"><span>+</span></span>
+        
+        </div>
+    
+        <ul class="eventsList">
+        
+            <apex:repeat value="{!coursesWithCategory[catSFID]}" var="crs">
+            <apex:outputText rendered="{!(crs.Course_Type__c!='Placeholder' && displayThisCourse[crs.Id]>0)}">
+            
+            <apex:outputText rendered="{!myEnrollmentsByCourseSFID[crs.Id].ComboID__c!='Placeholder'}">
+            <apex:variable var="myt" value="{!myEnrollmentsByCourseSFID[crs.Id]}"/>
+            
+            <li>
+              <c:TYSEnrolledCourseElement TYSInPopup="{!TYSInPopup}" myt="{!myt}" 
+                HideGrade="{!HideGrade}"
+                HideCertificate="{!HideCertificate}"
+                HideEnrollmentDate="{!HideEnrollmentDate}"
+              />
+            </li>
+            </apex:outputText>
+            
+    
+    
+            <apex:outputText rendered="{!myEnrollmentsByCourseSFID[crs.Id].ComboID__c=='Placeholder'}">
+    
+            <li>
+                <span class="eventDetails">
+                    <span class="eventTitle">
+                        <span class="courseIcon">Course &raquo;</span>
+                        <span class="courseName"><apex:outputText value=" {!crs.Name}"/></span>
+                    </span>
+                
+                <div>   
+    
+        <!-- 
+                <div class="progressBox">
+                    
+                    <apex:outputText rendered="{!myt.Course_Complete__c==TRUE}" >
+                    <span class='progressFull'/><span class='progressFull'/><span class='progressFull'/><span class='progressFull'/>
+                    <span class='progressText'>Complete</span>
+                    </apex:outputText>
+    
+                    <apex:outputText rendered="{!myt.Course_Complete__c==FALSE}" >
+                        <apex:outputText rendered="{!TEXT(DATEVALUE(myt.Date_Taken__c))}" ><span class='progressEmpty'/><span class='progressEmpty'/></apex:outputText><apex:outputText rendered="{!IF(ISBLANK(TEXT(DATEVALUE(myt.Date_Taken__c))),FALSE,TRUE)}" ><span class='progressFull'/><span class='progressFull'/></apex:outputText><span class='progressEmpty'/><span class='progressEmpty'/>
+                        <br/>
+                        <apex:outputText rendered="{!IF(ISBLANK(TEXT(DATEVALUE(myt.Date_Taken__c))),FALSE,TRUE)}"><span class='progressText'>In Progress</span></apex:outputText>
+                        <apex:outputText rendered="{!IF(ISBLANK(TEXT(DATEVALUE(myt.Date_Taken__c))),TRUE,FALSE)}"><span class='progressText'>Not Started</span></apex:outputText>
+                    </apex:outputText>
+                    <apex:outputLink styleClass="eventReg" rendered="{!TYSInPopup==false}" value="../{!myt.id}">Launch &raquo;</apex:outputLink>
+                    <apex:outputLink styleClass="eventReg" rendered="{!TYSInPopup==true}" value="#" onClick="launchLearningPop('{!myt.id}')">Launch &raquo;</apex:outputLink>
+                </div>
+        -->
+        <div class="progressBox">
+
+            <a class="eventReg enrol" 
+                href="javascript:cysEnroll('{!crs.id}');">Enroll &raquo;</a>
+            
+            
+        </div>
+        
+                <div id="contentwrapper">
+                    <span class="eventShortDesc">
+                        <span class="description">
+                            <apex:outputText escape="false" value="{!HTMLENCODE(crs.Summary__c)}" />
+                            <apex:outputText rendered="{!IF(ISBLANK(crs.Summary__c),true,false)}" escape="false"><em>No description available.</em></apex:outputText>
+                        </span>
+    <!-- 
+                        <span class="bodyData">
+                            <span class="label">Enrollment Date:</span>
+                            <span class="data"><apex:outputText value="{!myt.cysent__Enrollment_Date__c}"/></span>
+                        </span>
+                        <span class="bodyData">
+                            <span class="label">Last Viewed Date:</span>
+                            <span class="data"><apex:outputText value="{!myt.cysent__Date_Taken__c}"/></span>
+                        </span>
+    -->
+                    </span>
+                </div>
+                
+            <!--        
+                <div class="completionBox">
+                    <span class="gradeCompleted">
+                        <span class="completeLabel">Grade:</span>
+                        <span class="completeData"><apex:outputText value="{!myt.cysent__Score__c}"/></span>
+                    </span>
+    
+                    <span class="certCompleted">
+                        <span class="completeLabel">Certificate:</span>
+                        <span class="completeData"><apex:outputText value="{!myt.Certificate_Number__c}"/></span>
+                    </span>
+                        
+                </div>
+         -->
+                    
+                </div>
+                    
+                    
+                </span>
+            </li>
+            
+            </apex:outputText>
+            
+            </apex:outputText>
+            </apex:repeat>
+        </ul>
+            
+    </apex:outputText>
+        
+        <apex:outputText rendered="{!enrollmentsWithCategoryLevelNext[catSFID]==enrollmentsWithCategoryLevel[catSFID]}" escape="false" value="</li>" />
+        <apex:outputText rendered="{!enrollmentsWithCategoryLevelNext[catSFID]+1==enrollmentsWithCategoryLevel[catSFID]}" escape="false" value="</ul></li>" />
+        <apex:outputText rendered="{!enrollmentsWithCategoryLevelNext[catSFID]+2==enrollmentsWithCategoryLevel[catSFID]}" escape="false" value="</ul></ul></li></li>" />
+        <apex:outputText rendered="{!enrollmentsWithCategoryLevelNext[catSFID]-1==enrollmentsWithCategoryLevel[catSFID]}" escape="false" value="<ul>" />
+    
+    
+        <!-- </li> -->
+    
+        </apex:outputText>
+        </apex:repeat>
+        </apex:repeat>
+        
+    
+        </ul>
+    </apex:outputText>
+
+</apex:outputPanel>
+
+
+    <apex:actionRegion >
+    <apex:actionFunction status="loadStatusStringCYS" action="{!reloadCatalog}" 
+        name="viewCatalog" reRender="CYSEnrolledBlock, CYSCatalogBlock">
+    </apex:actionFunction>
+    </apex:actionRegion>
+
+
+    <apex:actionRegion >
+    <apex:actionFunction status="loadStatusStringCYS" action="{!enrollInCourseCYS}" 
+        name="cysEnroll" reRender="CYSEnrolledBlock, CYSCatalogBlock">
+        
+        <apex:param value="" assignTo="{!courseIdCYS}" name="courseIdCYS" />
+        
+    </apex:actionFunction>
+    </apex:actionRegion>
+    
+    <apex:outputPanel id="CYSCatalogBlock" title="Debug"  rendered="false">
+    
+    <p><h2 class="mainTitle">DEBUG</h2></p>
+    <p>
+     <apex:outputText escape="false" value="{!HTMLENCODE(detailString)}"  />
+    </p>
+    </apex:outputPanel>
+    
+
+</apex:form>
+</apex:tab>
+
+
+
+
+
+
+
+
+
+
+
+
+<apex:tab label="Completed" name="cysCompleted" id="tabFive" rendered="{!CategoryMode==TRUE}">
+<apex:form >
+
+    <apex:actionRegion >
+    <apex:actionFunction action="{!completedCollapseUpdate}" 
+        name="updateCompletedCollapsed" reRender="FakePanel">
+        <apex:param name="completedCatString" value="" assignTo="{!completedCatString}" />
+    </apex:actionFunction>
+    </apex:actionRegion>
+    
+ <apex:outputPanel id="FakePanel">
+ </apex:outputPanel>
+
+
+    <apex:outputText rendered="{!(hasNoCompletions==TRUE)}">No completions yet.</apex:outputText>
+
+    <ul class="categoryBrowse completed">
+    
+    
+    <apex:repeat value="{!allCategories}" var="cat" >
+
+    <apex:repeat value="{!enrollmentsWithCategory}" var="catSFID">
+
+    <apex:outputText rendered="{!(catSFID==cat.id)}">
+    
+    <!--  <li>  -->
+
+
+
+    <apex:outputText escape="false" value="<li class=level{!enrollmentsWithCategoryLevel[catSFID]}>" />
+    
+    
+    <apex:outputText rendered="{!(enrollmentsWithCategoryWithChildrenSizeCompleted[catSFID]>0)}" >
+    
+    <div class="category-tag-sort" style='background-color:{!HTMLENCODE(cat.Color__c)}' >
+    
+    <span class='label'><apex:outputText escape="false" value="{!HTMLENCODE(cat.cysent__Category_Name__c)}" />
+    <apex:inputHidden id="catid" value="{!cat.cysent__External_ID__c}"/>
+
+    <apex:outputText rendered="{!(enrollmentsWithCategorySizeCompleted[catSFID]>0)}">
+    (<apex:outputText value="{!enrollmentsWithCategorySizeCompleted[catSFID]}"/>)</apex:outputText>
+    </span>
+    
+    <span class="expandlink"><span>+</span></span>
+    
+    </div>
+    
+    </apex:outputText>
+
+    <ul class="eventsList">
+    
+        <apex:repeat value="{!enrollmentsWithCategory[catSFID]}" var="myt">
+        <apex:outputText rendered="{!(myt.ComboID__c!='Placeholder' && myt.Course_Complete__c==TRUE)}">
+            <li>
+              <c:TYSEnrolledCourseElement TYSInPopup="{!TYSInPopup}" myt="{!myt}" 
+                HideGrade="{!HideGrade}"
+                HideCertificate="{!HideCertificate}"
+                HideEnrollmentDate="{!HideEnrollmentDate}"
+              />
+            </li>
+        </apex:outputText>
+        </apex:repeat>
+    </ul>
+        
+    
+    <apex:outputText rendered="{!enrollmentsWithCategoryLevelNext[catSFID]==enrollmentsWithCategoryLevel[catSFID]}" escape="false" value="</li>" />
+    <apex:outputText rendered="{!enrollmentsWithCategoryLevelNext[catSFID]+1==enrollmentsWithCategoryLevel[catSFID]}" escape="false" value="</ul></li>" />
+    <apex:outputText rendered="{!enrollmentsWithCategoryLevelNext[catSFID]+2==enrollmentsWithCategoryLevel[catSFID]}" escape="false" value="</ul></ul></li></li>" />
+    <apex:outputText rendered="{!enrollmentsWithCategoryLevelNext[catSFID]-1==enrollmentsWithCategoryLevel[catSFID]}" escape="false" value="<ul>" />
+
+
+    <!-- </li> -->
+
+    </apex:outputText>
+    </apex:repeat>
+    </apex:repeat>
+    
+
+    </ul>
+
+
+</apex:form>
+
+</apex:tab>
+
+
+
+
+<apex:tab label="My Training" name="mytraining" id="tabOne" rendered="{!CategoryMode==FALSE}">
+    <apex:form >
+
+    <script type="text/javascript">
+        function launchPop(id) {
+            openIntegration('apex/LaunchTraining?scontrolCaching=1&id='+id, 'height=600,location=no,resizable=yes,toolbar=no,status=no,menubar=no,scrollbars=1', 1); 
+        }
+    </script>
+
+
+    <apex:pageBlock title="My Training">
+        <apex:pageBlockTable value="{!myEnrollments}" var="myt" columnsWidth="6%,37%,16%,12%,13%,16%" id="table">
+
+            <apex:column headerValue="View" >
+                <apex:outputLink rendered="{!TYSInPopup==false}" value="../{!myt.id}">View</apex:outputLink>
+                <apex:outputLink rendered="{!TYSInPopup==true}" value="#" onClick="launchPop('{!myt.id}')">View</apex:outputLink>
+            </apex:column>
+            
+            <!-- apex:column value="{!myt.Training_Course__c}"  headerValue="Course"/ -->
+            <apex:column headerValue="Course">
+                <apex:outputLink rendered="{!TYSInPopup==false}"  value="../{!myt.id}"><apex:outputText value=" {!myt.Training_course__r.Name}"/></apex:outputLink>
+                <apex:outputLink rendered="{!TYSInPopup==true}"  value="#" onClick="launchPop('{!myt.id}')"><apex:outputText value=" {!myt.Training_course__r.Name}"/></apex:outputLink>
+
+                <apex:facet name="header">
+
+                    <apex:commandLink value="Course"   
+                    action="{!doSort}" rerender="table">
+                        <apex:outputText escape="false" value="{!IF((sortField=='Training_Course__c' && sortOrder=='asc'), ' &uarr;', '')}" />
+                        <apex:outputText escape="false" value="{!IF((sortField=='Training_Course__c' && sortOrder=='desc'), ' &darr;', '')}" />
+                        <apex:param name="sortField" value="Training_Course__c" assignTo="{!sortField}" />
+                    </apex:commandLink>
+                    
+                </apex:facet>
+            </apex:column> 
+                        
+            <!-- apex:column value="{!myt.cysent__Enrollment_Date__c}" headerValue="Enrollment Date"/ -->
+            <apex:column value="{!myt.cysent__Enrollment_Date__c}"  >
+                <apex:facet name="header">
+                    <apex:commandLink value="Enrollment Date"   
+                    action="{!doSort}" rerender="table">
+                        <apex:outputText escape="false" value="{!IF((sortField=='Enrollment_Date__c' && sortOrder=='asc'), ' &uarr;', '')}" />
+                        <apex:outputText escape="false" value="{!IF((sortField=='Enrollment_Date__c' && sortOrder=='desc'), ' &darr;', '')}" />
+                        <apex:param name="sortField" value="Enrollment_Date__c" assignTo="{!sortField}" />
+                    </apex:commandLink>
+                </apex:facet>
+            </apex:column> 
+            
+            
+            <!-- apex:column value="{!myt.User__c}" headerValue="User Name"/ -->
+
+            <!-- apex:column value="{!myt.cysent__Course_Complete__c}" headerValue="Course Complete"/ -->
+            <apex:column value="{!myt.cysent__Course_Complete__c}"  >
+                <apex:facet name="header">
+                    <apex:commandLink value="Course Complete"   
+                    action="{!doSort}" rerender="table">
+                        <apex:outputText escape="false" value="{!IF((sortField=='Course_Complete__c' && sortOrder=='asc'), ' &uarr;', '')}" />
+                        <apex:outputText escape="false" value="{!IF((sortField=='Course_Complete__c' && sortOrder=='desc'), ' &darr;', '')}" />
+                        <apex:param name="sortField" value="Course_Complete__c" assignTo="{!sortField}" />
+                    </apex:commandLink>
+                </apex:facet>
+            </apex:column> 
+                        
+            
+            <!-- apex:column value="{!myt.cysent__Score__c}" headerValue="Score"/ -->
+            <apex:column value="{!myt.cysent__Score__c}"  >
+                <apex:facet name="header">
+                    <apex:commandLink value="Score"   
+                    action="{!doSort}" rerender="table">
+                        <apex:outputText escape="false" value="{!IF((sortField=='Score__c' && sortOrder=='asc'), ' &uarr;', '')}" />
+                        <apex:outputText escape="false" value="{!IF((sortField=='Score__c' && sortOrder=='desc'), ' &darr;', '')}" />
+                        <apex:param name="sortField" value="Score__c" assignTo="{!sortField}" />
+                    </apex:commandLink>
+                </apex:facet>
+            </apex:column>          
+            
+            <!-- apex:column value="{!myt.cysent__Date_Taken__c}" headerValue="Date Last Viewed"/ -->
+            <apex:column value="{!myt.cysent__Date_Taken__c}"  >
+                <apex:facet name="header">
+                    <apex:commandLink value="Date Last Viewed"   
+                    action="{!doSort}" rerender="table">
+                        <apex:outputText escape="false" value="{!IF((sortField=='Date_Taken__c' && sortOrder=='asc'), ' &uarr;', '')}" />
+                        <apex:outputText escape="false" value="{!IF((sortField=='Date_Taken__c' && sortOrder=='desc'), ' &darr;', '')}" />
+                        <apex:param name="sortField" value="Date_Taken__c" assignTo="{!sortField}" />
+                    </apex:commandLink>
+                </apex:facet>
+            </apex:column> 
+                        
+            
+            
+       </apex:pageBlockTable>
+    
+    </apex:pageBlock>
+    </apex:form>
+
+</apex:tab>
+
+<apex:tab label="Training Catalog" name="trainingcatalog" id="tabTwo" rendered="{!TCExists==true && CategoryMode==FALSE}">
+
+    
+    <apex:pageBlock title="Training Catalog">
+    
+    <script type="text/javascript">
+            var j$ = jQuery.noConflict();   //needed so tabPanel still works!
+            j$(function() {
+                j$("#tree").treeview({
+                    collapsed: true,
+                    animated: "medium",
+                    control:"#sidetreecontrol",
+                    persist: "location"
+                });
+            // make the root training catalog folder expanded    
+            j$('#level1').addClass('collapsable');
+            j$('#level1').removeClass('expandable');
+            j$('#level1 > div.hitarea').removeClass('expandable-hitarea');
+            j$('#level1 > div.hitarea').addClass('collapsable-hitarea');
+            j$('#level1list').css('display','block');
+            })
+
+        function launchPop(id) {
+            openIntegration('apex/LaunchTraining?scontrolCaching=1&id='+id, 'height=600,location=no,resizable=yes,toolbar=no,status=no,menubar=no,scrollbars=1', 1); 
+        }
+
+    </script>
+
+
+    <table width="100%">
+    <tr><td width="50%">
+    
+    <!-- Tree -->
+    <div class="treeheader" style="height:0px;">&nbsp;</div>
+    <div id="sidetreecontrol"><a href="?#"><font style="color:blue;">Collapse All</font></a> | <a href="?#"><font style="color:blue;">Expand All</font></a></div>
+
+
+<apex:outputText >{!catalogExistsMessage}</apex:outputText>
+
+    <ul id="tree">
+    <apex:form >
+
+    
+    <apex:repeat value="{!catalog}" var="subnode">
+
+            
+        <li id="level1"><span class="folder">&nbsp;</span> <span class="foldername"><apex:outputText >{!subnode.folderName}</apex:outputText></span>
+            <ul id="level1list">
+                <apex:repeat value="{!subnode.courses}" var="course">
+                <li><span class="course">&nbsp;</span> <a href="javascript:viewDetail('{!course.Id}');"><apex:outputText >{!course.name}</apex:outputText></a>
+                </li>
+                </apex:repeat>
+        
+                <apex:repeat value="{!subnode.subFolders}" var="subnode">
+                <li><span class="folder">&nbsp;</span> <span class="foldername"><apex:outputText >{!subnode.folderName}</apex:outputText></span>
+                <ul>
+                    <apex:repeat value="{!subnode.courses}" var="course">
+                    <li><span class="course">&nbsp;</span> <a href="javascript:viewDetail('{!course.Id}');"><apex:outputText >{!course.name}</apex:outputText></a>
+            
+                    </li>
+                    </apex:repeat>
+            
+                    <apex:repeat value="{!subnode.subFolders}" var="subnode">
+                    <li><span class="folder">&nbsp;</span> <span class="foldername"><apex:outputText >{!subnode.folderName}</apex:outputText></span>
+                    <ul>
+                        <apex:repeat value="{!subnode.courses}" var="course">
+                        <li><span class="course">&nbsp;</span> <a href="javascript:viewDetail('{!course.Id}');"><apex:outputText >{!course.name}</apex:outputText></a>
+                        </li>
+                        </apex:repeat>
+            
+                        <apex:repeat value="{!subnode.subFolders}" var="subnode">
+                            <li><span class="folder">&nbsp;</span> <span class="foldername"><apex:outputText >{!subnode.folderName}</apex:outputText></span>
+                            <ul>
+                            <apex:repeat value="{!subnode.courses}" var="course">
+                                <li><span class="course">&nbsp;</span> <a href="javascript:viewDetail('{!course.Id}');"><apex:outputText >{!course.name}</apex:outputText></a>
+                                </li>
+                            </apex:repeat>
+            
+                            <apex:repeat value="{!subnode.subFolders}" var="subnode">
+                                <li><span class="folder">&nbsp;</span> <span class="foldername"><apex:outputText >{!subnode.folderName}</apex:outputText></span>
+                                <ul>
+                                <apex:repeat value="{!subnode.courses}" var="course">
+                                    <li><span class="course">&nbsp;</span> <a href="javascript:viewDetail('{!course.Id}');"><apex:outputText >{!course.name}</apex:outputText></a>
+                                    </li>
+                                </apex:repeat>
+                                <apex:repeat value="{!subnode.subFolders}" var="subnode">
+                                    <li><span class="folder">&nbsp;</span> <span class="foldername"><apex:outputText >{!subnode.folderName}</apex:outputText></span>
+                                    <ul>
+                                    <apex:repeat value="{!subnode.courses}" var="course">
+                                        <li><span class="course">&nbsp;</span> <a href="javascript:viewDetail('{!course.Id}');"><apex:outputText >{!course.name}</apex:outputText></a>
+                                        </li>
+                                    </apex:repeat>
+                                    </ul></li>
+                                </apex:repeat>
+                                </ul></li>
+                        
+                            </apex:repeat>
+                            </ul></li>
+                            
+                        </apex:repeat>
+                        </ul></li>
+                    
+                    </apex:repeat>
+                    </ul></li>
+                
+            </apex:repeat>
+            </ul>
+        </li>
+        
+
+        </apex:repeat>
+        
+                
+        <apex:actionFunction status="loadStatusString" action="{!loadDetails}" name="viewDetail" reRender="CourseDetailBlock" >
+
+    <apex:param value="" assignTo="{!courseId}" name="courseId" />
+</apex:actionFunction>      
+        </apex:form>
+
+     </ul>   
+
+
+
+
+
+
+
+
+
+    <!-- End of Tree -->       
+    </td>
+    <td id="courseDetailPanel"> 
+
+    <apex:form >
+    <apex:outputPanel id="CourseDetailBlock" title="Course Detail" >
+    <p><h2 class="mainTitle">Course Detail</h2></p>
+    
+
+    
+    
+    <p>
+    <em><apex:outputText value="{!IF((detailString==''), 'No course selected.', '')}" /></em>
+     <apex:outputText escape="false" value="{!HTMLENCODE(detailString)}"  />
+
+     <apex:outputText rendered="{!courseId!=null}">
+         <p>
+             <apex:outputText rendered="{!alreadyEnrolled==false}">
+                 <apex:commandButton value="Enroll" id="enrollButton" 
+                  action="{!enrollInCourse}"
+                 />
+             </apex:outputText>
+
+             <apex:outputText rendered="{!alreadyEnrolled!=false}">
+                 <strong></strong>
+             </apex:outputText>
+
+
+         </p>
+
+     </apex:outputText>
+    </p>
+    
+    
+    </apex:outputPanel>
+    </apex:form>
+        
+ <apex:outputPanel id="LoadingStatus">
+    <apex:actionStatus id="loadStatusString">
+        <apex:facet name="start">
+        Please wait...<img src="{!$Resource.spinner}"  />
+        </apex:facet>
+    </apex:actionStatus>            
+ </apex:outputPanel>   
+ 
+    
+    </td></tr>
+    
+    </table>
+    
+    
+    </apex:pageBlock>
+
+</apex:tab>
+</apex:tabPanel>
+</div>
+</apex:page>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <icon>Adobe_Connect/Adobe_Connect_Logo.png</icon>
+    <label>Adobe Connect</label>
+    <mobileReady>true</mobileReady>
+    <motif>Custom109: TV Widescreen</motif>
+    <page>AC_AccountSetupPage</page>
+</CustomTab>

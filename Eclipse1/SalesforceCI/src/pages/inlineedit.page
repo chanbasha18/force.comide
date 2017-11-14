@@ -1,0 +1,7 @@
+<apex:page standardController="Account">
+<apex:form >
+<apex:outputField value="{!account.Name}">
+<apex:inlineEditSupport event="ondblClick" />
+</apex:outputField>
+</apex:form>
+</apex:page>

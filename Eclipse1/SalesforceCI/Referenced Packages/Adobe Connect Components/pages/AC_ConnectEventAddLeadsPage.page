@@ -1,0 +1,121 @@
+<!--
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+*  Copyright [first year code created] Adobe Systems Incorporated
+*  All Rights Reserved.
+*
+* NOTICE:  All information contained herein is, and remains
+* the property of Adobe Systems Incorporated and its suppliers,
+* if any.  The intellectual and technical concepts contained
+* herein are proprietary to Adobe Systems Incorporated and its
+* suppliers and are protected by all applicable intellectual property 
+* laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe Systems Incorporated.
+**************************************************************************/
+-->
+<apex:page controller="esync_adobe.AC_ConnectEventAddLeadController" action="{!checkRedirect}" tabStyle="Adobe_Connect__tab">
+    <script type="text/javascript">
+        function selectAllCheckBoxToggled(obj,receivedInputId)
+        {
+            var inputCheckBox = document.getElementsByTagName('input');
+            for(var i=0; i<inputCheckBox.length; i++)
+            {
+                if(inputCheckBox[i].id.indexOf(receivedInputId) != -1)
+                {
+                    inputCheckBox[i].checked = obj.checked;
+                }
+            }
+        }
+        
+    </script>
+    <apex:form >        
+        <apex:sectionHeader title="{!eventName}"/>
+        <div style="clear:both">
+            <apex:commandLink action="{!goBack}" value="<< Back to Event Details : {!eventName}" style="color:#015ba7;text-decoration:none;font-weight:bold;"/>
+            <apex:commandButton value="Log Out" action="{!logout}" style="float:right"/>
+        </div>
+        <br/><br/>
+        <apex:pageBlock title="Add Leads" id="mainPageBlock">
+            <apex:pageblockSection columns="1" id="pageMessages">
+                <apex:pagemessages />
+            </apex:pageblockSection>
+            <apex:actionFunction name="filterLeads" action="{!filterLeads}" rerender="leadsList,pageMessages,pageNavigation"/>
+            <apex:pageblockSection title="Filter Leads" id="leadFilter">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Name"/>
+                    <apex:inputText value="{!filterName}" onKeyup="filterLeads();"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Company"/>
+                    <apex:inputText value="{!filterCompany}" onKeyup="filterLeads();"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Email"/>
+                    <apex:inputText value="{!filterEmail}" onKeyup="filterLeads();"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Title"/>
+                    <apex:inputText value="{!filterTitle}" onKeyup="filterLeads();"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageblockSection>
+            <br/>
+            <apex:pageBlockSection columns="1" id="leadsList">
+                <apex:pageblockTable value="{!leads}" var="l" styleClass="tableClass">
+                    <apex:Column >
+                      <apex:facet name="header">
+                         <apex:inputCheckbox onclick="selectAllCheckBoxToggled(this,'selectedCheckBox')" value="{!selectAllCheckBoxState}"/>
+                      </apex:facet>
+                      <apex:inputcheckbox value="{!l.selected}" id="selectedCheckBox"/>
+                    </apex:Column>
+                    <apex:Column >
+                      <apex:facet name="header">Name</apex:facet>
+                      <apex:outputLink value="{!URLFOR($Action.Lead.View,l.lead.id)}" target="_blank"> {!l.lead.name}</apex:outputLink>
+                    </apex:Column>
+                    <apex:Column >
+                      <apex:facet name="header">Company</apex:facet>
+                      <apex:outputText value="{!l.lead.Company}"/>
+                    </apex:Column>
+                    <apex:Column >
+                      <apex:facet name="header">Title</apex:facet>
+                      <apex:outputText value="{!l.lead.Title}"/>
+                    </apex:Column>
+                    <apex:Column >
+                      <apex:facet name="header">Lead Source</apex:facet>
+                      <apex:outputText value="{!l.lead.LeadSource}"/>
+                    </apex:Column>
+                    <apex:Column >
+                      <apex:facet name="header">Lead Status</apex:facet>
+                      <apex:outputText value="{!l.lead.Status}"/>
+                    </apex:Column>
+                    <apex:Column >
+                      <apex:facet name="header">Email</apex:facet>
+                      <apex:outputLink value="{!'mailto:'+l.lead.Email}" target="_blank"> {!l.lead.Email}</apex:outputLink>
+                    </apex:Column>
+                    <apex:Column >
+                      <apex:facet name="header">Phone</apex:facet>
+                      <apex:outputText value="{!l.lead.Phone}"/>
+                    </apex:Column>
+                </apex:pageblockTable>
+            </apex:pageBlockSection>
+                <apex:pageblockSection id="pageNavigation">
+                    <apex:panelGrid columns="5">
+                        <apex:outputLabel style="padding-right:10px">{!'Page '+pageNumber+' of '+pageCount}</apex:outputLabel>
+                        <apex:commandLink style="padding-right:10px" action="{!first}" rerender="leadsList,pageMessages,pageNavigation" rendered="{!hasPrevious}">First</apex:commandlink>
+                        <apex:commandLink style="padding-right:10px" action="{!previous}" rendered="{!hasPrevious}" rerender="leadsList,pageMessages,pageNavigation">Previous</apex:commandlink>
+                        <apex:commandLink style="padding-right:10px" action="{!next}" rendered="{!hasNext}" rerender="leadsList,pageMessages,pageNavigation">Next</apex:commandlink>
+                        <apex:commandLink style="padding-right:10px" action="{!last}" rerender="leadsList,pageMessages,pageNavigation" rendered="{!hasNext}">Last</apex:commandlink>
+                    </apex:panelGrid>
+                </apex:pageblockSection>
+                <apex:pageBlockButtons >
+                    <apex:commandButton value="Add Selected" action="{!addSelected}"/>
+                    <apex:commandButton value="Clear Filters" action="{!clearFilters}" rerender="mainPageBlock"/>
+                </apex:pageBlockButtons>
+                <!--Workaround to keep PageblockSection Collapsed by default-->
+                <!--<script> twistSection(document.getElementById('{!$Component.mainPageBlock.leadFilter}').getElementsByTagName('img')[0]) </script>-->
+        </apex:pageBlock>
+    </apex:form> 
+</apex:page>

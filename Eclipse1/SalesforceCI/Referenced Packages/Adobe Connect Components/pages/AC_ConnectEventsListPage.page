@@ -1,0 +1,89 @@
+<!--
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+*  Copyright [first year code created] Adobe Systems Incorporated
+*  All Rights Reserved.
+*
+* NOTICE:  All information contained herein is, and remains
+* the property of Adobe Systems Incorporated and its suppliers,
+* if any.  The intellectual and technical concepts contained
+* herein are proprietary to Adobe Systems Incorporated and its
+* suppliers and are protected by all applicable intellectual property 
+* laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe Systems Incorporated.
+**************************************************************************/
+-->
+
+<apex:page controller="esync_adobe.AC_ConnectEventsController" action="{!checkRedirect}" tabStyle="Adobe_Connect__tab">
+  <apex:form >
+      <apex:SectionHeader title="Adobe Connect Events"/>
+      <div style="clear:both">
+          <apex:commandButton value="Log Out" action="{!logout}" style="float:right"/>
+      </div>
+      <br/>
+      <br/>
+      <apex:pagemessages />
+      <br/>
+      <apex:PageBlock title="Upcoming Events">
+          <apex:pageBlockSection collapsible="false" columns="1" title="List of your upcoming scheduled events. Click on Event Name for detailed information and for inviting your Leads and Contacts for that event.">
+              <apex:pageBlockTable value="{!upcomingEvents}" var="e" rowClasses="odd,even" styleClass="tableClass">
+                  <apex:column >
+                      <apex:facet name="header">Event Name</apex:facet>
+                      <apex:commandLink value="{!e.name}" action="{!openEventInformation}">
+                          <apex:param name="scoId" value="{!e.scoId}"/>
+                      </apex:commandLink>
+                  </apex:column>
+                  <apex:column >
+                      <apex:facet name="header">Event URL</apex:facet>
+                      <apex:outputText value="{!e.url}"/>
+                  </apex:column>
+                   <apex:column >
+                      <apex:facet name="header">Start Date</apex:facet>
+                      <apex:outputText value="{!e.startDateString}"/>
+                  </apex:column>
+                   <apex:column >
+                      <apex:facet name="header">End Date</apex:facet>
+                      <apex:outputText value="{!e.endDateString}"/>
+                  </apex:column>
+               <!--   <apex:column >
+                      <apex:facet name="header">Event Ended</apex:facet>
+                      <apex:outputText value="{!IF(e.isEnded == true,'Yes','No')}"/>
+                  </apex:column> -->
+              </apex:pageBlockTable>
+          </apex:pageBlockSection>
+      </apex:PageBlock>
+      <br/>
+      <apex:PageBlock title="Archived Events">
+          <apex:pageBlockSection columns="1" title="List of events already conducted. Click on an Event Name to view the reports for that event and create new Leads and Contacts." collapsible="false">
+              <apex:pageBlockTable value="{!archivedEvents}" var="e" rowClasses="odd,even" styleClass="tableClass">
+                  <apex:column >
+                      <apex:facet name="header">Event Name</apex:facet>
+                      <apex:commandLink value="{!e.name}" action="{!openEventInformation}">
+                          <apex:param name="scoId" value="{!e.scoId}"/>
+                      </apex:commandLink>
+                  </apex:column>
+                  <apex:column >
+                      <apex:facet name="header">Event URL</apex:facet>
+                      <apex:outputText value="{!e.url}"/>
+                  </apex:column>
+                   <apex:column >
+                      <apex:facet name="header">Start Date</apex:facet>
+                      <apex:outputText value="{!e.startDateString}"/>
+                  </apex:column>
+                   <apex:column >
+                      <apex:facet name="header">End Date</apex:facet>
+                      <apex:outputText value="{!e.endDateString}"/>
+                  </apex:column>
+               <!--   <apex:column >
+                      <apex:facet name="header">Event Ended</apex:facet>
+                      <apex:outputText value="{!IF(e.isEnded == true,'Yes','No')}"/>
+                  </apex:column> -->
+              </apex:pageBlockTable>
+          </apex:pageBlockSection>
+      </apex:PageBlock>
+   </apex:form>
+</apex:page>

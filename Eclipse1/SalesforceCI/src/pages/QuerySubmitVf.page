@@ -1,0 +1,39 @@
+<apex:page controller="ContactCaseDetails" showHeader="false" sidebar="false"> 
+<apex:stylesheet value="{!$Resource.customstylecss}" />    
+<html>
+<body>
+    <apex:form id="theForm">
+    <div id="header">       
+        <h>MyShops</h>        
+        <ul>
+            <li><a class="active" href="https://locationapp-dev-ed.my.salesforce.com/apex/Home">Home</a></li>
+            <li><a href="https://locationapp-dev-ed.my.salesforce.com/apex/contactsVf">Contacts</a></li>
+            <li><a href="https://locationapp-dev-ed.my.salesforce.com/apex/CasesVf">MyQueries</a></li>
+            <apex:commandButton action="{!cas}" value="Logout" id="button" style="float:right;padding:15px 20px;color:blue"/>
+       </ul>
+    </div>
+<apex:pageBlock tabStyle="Case" title="Reason For Query">
+ <apex:pageBlockSection >
+       <apex:outputField value="{!c.Subject}"><br/>
+        <apex:inlineEditSupport event="ondblClick" />
+       </apex:outputField><br/>    
+</apex:pageBlockSection>
+</apex:pageBlock>
+<apex:pageBlock title="Query Description">
+  <apex:pageBlockSection >    
+       <apex:outputField value="{!c.Priority}"><br/>    
+        <apex:inlineEditSupport event="ondblClick" />        
+       </apex:outputField><br/><br/>      
+     <apex:inputField value="{!c.Description}" /><br/><br/>    
+</apex:pageBlockSection>  <br/>
+<apex:commandButton action="{!Now}" value="Save" style="margin-left:25%;color:#800000" />
+     <apex:commandButton action="{!cancelNow}" value="Cancel" style="margin-left:5%;color:#800000"/>    
+</apex:pageBlock>
+ <apex:commandButton action="{!goback}" value="GoBack Here" style="color:#800000;padding:8px 8px"/><br/> 
+  </apex:form><br/>
+  <div id="footer">
+    Copyright © 2010-2016 myshops.com
+</div>
+ </body>
+</html>
+</apex:page>

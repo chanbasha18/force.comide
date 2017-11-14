@@ -1,0 +1,44 @@
+<apex:page controller="ContactCaseDetails" showHeader="false" sidebar="false"> 
+<apex:stylesheet value="{!$Resource.customstylecss}" />    
+<html>
+<body>
+    <apex:form id="theForm">
+    <div id="header">       
+        <h>MyShops</h>        
+        <ul>
+            <li><a class="active" href="https://locationapp-dev-ed.my.salesforce.com/apex/Home">Home</a></li>
+            <li><a href="https://locationapp-dev-ed.my.salesforce.com/apex/contactsVf">Contacts</a></li>
+            <li><a href="https://locationapp-dev-ed.my.salesforce.com/apex/CasesVf">MyQueries</a></li>
+            <apex:commandButton action="{!cas}" value="Logout" id="button" style="float:right;padding:15px 20px;color:blue;color:blue"/>
+       </ul>
+    </div>
+
+<apex:pageBlock title="Contact Related Queries">
+
+<table>   
+        <tr>
+           <th bgcolor="#66ccff">CaseNumber</th>
+           <th bgcolor="#66ccff">Subject</th>
+           <th bgcolor="#66ccff">Priority</th>
+            <th bgcolor="#66ccff">Status</th>
+           <th bgcolor="#66ccff">Description</th>       
+        </tr>      
+        <apex:repeat value="{!cases}" var="c" >
+        <tr>       
+            <td><apex:outputLink value="/apex/casecommentVf?id={!c.Id}">{!c.CaseNumber}</apex:outputLink></td>
+            <td>{!c.Subject}</td>          
+            <td>{!c.Priority}</td>    
+            <td>{!c.Status}</td>        
+            <td>{!c.Description}</td>
+     </tr>
+        </apex:repeat> 
+     </table><br/><br/>    
+      <apex:commandButton action="{!goback}" value="GoBack Here" style="color:#800000;padding:8px 8px"/>   
+    </apex:pageBlock> 
+ </apex:form><br/>
+ <div id="footer">
+    Copyright © 2010-2016 miraclesoft.com
+</div>
+ </body>
+</html>
+</apex:page>

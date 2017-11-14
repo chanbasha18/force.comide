@@ -1,0 +1,42 @@
+<apex:page Controller="HomeLogOutController" showHeader="false" sidebar="false" >  
+<!-- Begin Default Content REMOVE THIS -->
+<apex:stylesheet value="{!$Resource.customstylecss}"/>
+<apex:form >
+<html>
+<head>
+</head>
+<body>
+<div  id="header">
+<h1>MyShops</h1> 
+<ul>
+  <li><a href="https://locationapp-dev-ed.my.salesforce.com/apex/Home">Home</a></li>
+  <li><a href="https://locationapp-dev-ed.my.salesforce.com/apex/contactsVf">Contacts</a></li>
+  <li><a href="https://locationapp-dev-ed.my.salesforce.com/apex/casesVf">MyQueries</a></li>
+  <li><a href="https://locationapp-dev-ed.my.salesforce.com/apex/opportunitieVf">My Opportunities</a></li>
+  <apex:commandButton action="{!Move}" value="Logout" id="button" style="float:right;padding:15px 20px;color:blue"/ >
+</ul>
+</div>
+<apex:pageBlock title="About MyShop Customer Portal">
+<p style="font-size:15px;padding:8px 8px">A <i><b style="font-size:18px">Customer portal</b></i> is a private,secure Website that enables businesses 
+to share account-specific information with customers such as credit status, invoices, available rebates, product and order 
+information, calendars, etc. It enhances customer relationships by providing complete 24x7 access to up-to-date information. 
+The advantages of customer portals are convenience and relevance--they contain everything customers need in one online place (no need to navigate across multiple Web sites and logins). And, in a well-designed customer portal, your customers “see” only those products and services that are relevant to their contexts.
+Salesforce customer portal allows you to utilize great tools that are available in the internet as an effective self-service channel and at the same time a customer service base that is low in cost. In order to set up and customize the Salesforce Customer portal,
+ you must have permission to customize application.</p>
+<img src="
+
+
+http://rainforce.walkme.com/wp-content/uploads/2014/03/Salesforce-Customer-Portal.jpg" style="float:center;padding:10px 200px"/>
+<p style="font-size:15px;padding:8px 8px">Using your Customer Portal,your customers will be able to search public solutions to find answers to their questions and problems.
+Public solutions will consist entirely of solutions that your Customer Support team has created in 
+Salesforce.customers will be using the Customer Portal to find answers to common issues, it is a good idea to create a solution for each of your organization's FAQs.Any standard user of Salesforce has access to create solutions, although you may decide to assign this initial task to a select group
+of Customer Support representatives.
+.</p>
+</apex:pageBlock>
+<div id="footer">
+    Copyright © 2010-2016 myshops.com
+</div>
+</body>
+</html>
+</apex:form>
+</apex:page>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>Configuration settings for Connect Your Salesteam.</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Category_Mode__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Checking this enables the &quot;Category Mode&quot; version of the My Training tab. Ensure that you have correctly categorized your content and setup your groups before enabling this mode. If not set the My Training tab will use the old system of the list of enrollments + the Connect Training Catalog view.</description>
+        <externalId>false</externalId>
+        <label>Category Mode</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Hide_Catalog__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Check this to hide the Catalog tab for all users.</description>
+        <externalId>false</externalId>
+        <label>Hide Catalog</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Hide_Certificate__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Check this to hide the &quot;Certificate&quot; text on the course listings screen while in Category Mode.</description>
+        <externalId>false</externalId>
+        <label>Hide Certificate</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Hide_Enrollment_Date__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Check this to hide the &quot;Enrollment Date&quot; text on the course listings screen while in Category Mode.</description>
+        <externalId>false</externalId>
+        <label>Hide Enrollment Date</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Hide_Grade__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Check this to hide the &quot;Grade&quot; text on the course listings screen while in Category Mode.</description>
+        <externalId>false</externalId>
+        <label>Hide Grade</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Launch_Training_In_Popup__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Train Your Salesteam: When a user clicks a course or &quot;View&quot; in the My Training page, open the content in a popup window rather than view the record&apos;s detail page.</description>
+        <externalId>false</externalId>
+        <label>Launch Training In Popup</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Cysalesteam Configuration</label>
+    <visibility>Public</visibility>
+</CustomObject>

@@ -1,0 +1,58 @@
+<apex:page standardController="Case " extensions="LogoutController,CaseCommentController,GoBackController"  showHeader="false" sidebar="false"> 
+<apex:stylesheet value="{!$Resource.customstylecss}" />    
+<html>
+<body>
+    <apex:form id="theForm">
+    <div id="header">       
+        <h>MyShops</h>        
+        <ul>
+            <li><a class="active" href="https://locationapp-dev-ed.my.salesforce.com/apex/Home">Home</a></li>
+            <li><a href="https://locationapp-dev-ed.my.salesforce.com/apex/contactsVf">Contacts</a></li>
+            <li><a href="https://locationapp-dev-ed.my.salesforce.com/apex/CasesVf">MyQueries</a></li>
+            <apex:commandButton action="{!cas}" value="Logout" id="button" style="float:right;padding:15px 20px;color:blue"/>       
+       </ul>
+    </div>
+<apex:pageBlock title="MyQuery Details" >     
+         <table>
+           <tr>
+             <th bgcolor="#66ccff">Subject</th>
+             <th bgcolor="#66ccff">Description</th>
+           </tr>
+           
+           <tr>
+             <td>{!case.Subject}</td>
+             <td>{!case.Description}</td>
+           </tr>
+         </table>
+</apex:pageBlock>        
+<apex:pageBlock title="Comment Details">
+<table>         
+        <tr>
+            <th bgcolor="#66ccff">CommentedBy</th>              
+            <th bgcolor="#66ccff">CreatedDate</th> 
+            <th bgcolor="#66ccff">Comment</th>
+        </tr>                    
+        <apex:repeat value="{!CaseCommentsSortedASC}" var="ccc">
+        <tr>             
+            <td >{!ccc.createdby.Name}</td>
+            <td>{!ccc.createdDate}</td>
+            <td>{!ccc.commentBody}</td>            
+        </tr>    
+        </apex:repeat> 
+     </table>                   
+ <apex:pageBlock title="Leave a Comment Here">                                                
+    <apex:pageBlockSection >
+       <apex:inputTextarea value="{!csc.CommentBody}"/>   
+    </apex:pageBlockSection>
+ </apex:pageBlock>
+ <apex:commandButton action="{!save}" value="Submit Comment" style="margin-left:20%;color:#800000" />   
+<apex:commandButton action="/apex/CaseListVf" value="Cancel" style="margin-left:3%;color:#800000" /><br/> <br/>                        
+</apex:pageBlock>    
+<apex:commandButton action="/apex/CaseListVf" value="GoBack Here" style="padding:8px 8px;color:#800000" /> 
+</apex:form><br/>
+<div id="footer">
+    Copyright © 2010-2016 myshops.com
+</div>
+ </body>
+</html>
+</apex:page>

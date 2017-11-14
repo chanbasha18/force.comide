@@ -1,0 +1,124 @@
+<!--
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+*  Copyright [first year code created] Adobe Systems Incorporated
+*  All Rights Reserved.
+*
+* NOTICE:  All information contained herein is, and remains
+* the property of Adobe Systems Incorporated and its suppliers,
+* if any.  The intellectual and technical concepts contained
+* herein are proprietary to Adobe Systems Incorporated and its
+* suppliers and are protected by all applicable intellectual property 
+* laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe Systems Incorporated.
+**************************************************************************/
+-->
+
+<apex:page controller="esync_adobe.AC_ConnectEventReportsController" action="{!checkRedirect}" tabStyle="Adobe_Connect__tab">
+  <apex:sectionHeader title="{!eventDetails.name}"/>
+  <apex:form >
+      <div style="clear:both">
+          <apex:commandLink action="{!goBackToEventReport}" value="<< Back to Event Details : {!eventDetails.name}" style="color:#015ba7;text-decoration:none;font-weight:bold;"/>
+          <apex:commandButton value="Log Out" action="{!logout}" style="float:right"/>
+      </div>
+      <br/><br/>
+      <apex:pageBlock title="Add Event Participants to Salesforce">
+          <apex:pageBlockSection collapsible="false" columns="1" title="To create Leads or Contacts, map the Event report information ith Salesforce fields. This mapping will be applicable to ll selected users.">
+              <apex:tabPanel switchType="client" selectedTab="leads" id="theTabPanel">
+                <apex:tab label="Leads" name="leads" id="leadTab">
+                    <apex:pageBlock title="Map Lead Fields">
+                        <apex:pageblockSection columns="2">
+                            <apex:pageBlockSectionItem >
+                                <apex:outputText style="font-size:14px;font-weight:600" value="Salesforce Lead Fields"/>
+                                <apex:outputText style="font-size:14px;font-weight:600" value="Connect Event Report Fields"/>
+                            </apex:pageBlockSectionItem>
+                            <apex:pageBlockSectionItem >
+                                <apex:outputText style="font-size:14px;font-weight:600" value="Salesforce Lead Fields"/>
+                                <apex:outputText style="font-size:14px;font-weight:600" value="Connect Event Report Fields"/>
+                            </apex:pageBlockSectionItem> 
+                        </apex:pageblockSection>
+                        <br/>
+                        <apex:dynamicComponent componentValue="{!leadMappings}"/>
+                    
+                        <br/>
+                        
+                        <apex:pageblockSection columns="1">
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel style="font-size:12px; font-weight:600px" value="Match Duplicates"/>
+                                <apex:selectRadio value="{!leadDuplicateCriteria}" style="font-size:12px" layout="pageDirection">
+                                    <apex:selectOption itemvalue="{!FILTER_EMAIL}" itemlabel="Match duplicates on the basis of Email"/>
+                                    <apex:selectOption itemvalue="{!FILTER_NAME}" itemlabel="Match duplicates on the basis of Name"/>
+                                    <apex:selectOption itemValue="{!FILTER_NONE}" itemlabel="Do not match duplicates"/>                                 
+                                </apex:selectRadio>
+                            </apex:pageBlockSectionItem>
+                        </apex:pageblockSection>
+                    
+                        <apex:pageBlockButtons location="bottom">
+                            <apex:outputPanel rendered="{!$ObjectType.Campaign.accessible}">
+                                <apex:outputText style="font-size:12px;font-weight:600;" value="Add to Campaign"/>
+                                &nbsp;
+                                <apex:selectList value="{!selectedLeadCampaign}" multiselect="false" title="Add to Campaign" size="1">
+                                    <apex:selectOptions value="{!campaignsList}"/>
+                                </apex:selectList>
+                            </apex:outputPanel>
+                            &nbsp;&nbsp;
+                            <apex:outputText style="font-size:12px;font-weight:600;" value="Assign to Queue"/>
+                            &nbsp;
+                            <apex:selectList value="{!selectedQueue}" style="font-size:12px;" multiselect="false" title="Assign to Queue" size="1">
+                                <apex:selectOptions value="{!queueItems}"/>
+                            </apex:selectList>
+                            &nbsp;&nbsp;
+                            <apex:commandButton value="Add as Lead" action="{!addAsLeads}"/>
+                        </apex:pageBlockButtons>
+                    
+                    </apex:pageBlock>
+                </apex:tab>
+                <apex:tab label="Contacts" name="contacts" id="contactTab">
+                    <apex:pageBlock title="Map Contact Fields">
+                        <apex:pageblockSection columns="2">
+                            <apex:pageBlockSectionItem >
+                                <apex:outputText style="font-size:14px;font-weight:600" value="Salesforce Contact Fields"/>
+                                <apex:outputText style="font-size:14px;font-weight:600" value="Connect Event Report Fields"/>
+                            </apex:pageBlockSectionItem>
+                            <apex:pageBlockSectionItem >
+                                <apex:outputText style="font-size:14px;font-weight:600" value="Salesforce Contact Fields"/>
+                                <apex:outputText style="font-size:14px;font-weight:600" value="Connect Event Report Fields"/>
+                            </apex:pageBlockSectionItem> 
+                        </apex:pageblockSection>
+                        <br/>
+                        <apex:dynamicComponent componentValue="{!contactMappings}"/>
+                    
+                        <br/>
+                        <apex:pageblockSection columns="1">
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel style="font-size:12px; font-weight:600px" value="Match Duplicates"/>
+                                <apex:selectRadio value="{!contactDuplicateCriteria}" style="font-size:12px" layout="pageDirection">
+                                    <apex:selectOption itemvalue="{!FILTER_EMAIL}" itemlabel="Match duplicates on the basis of Email"/>
+                                    <apex:selectOption itemvalue="{!FILTER_NAME}" itemlabel="Match duplicates on the basis of Name"/>
+                                    <apex:selectOption itemValue="{!FILTER_NONE}" itemlabel="Do not match duplicates"/>
+                                </apex:selectRadio>
+                            </apex:pageBlockSectionItem>
+                        </apex:pageblockSection>
+                    
+                        <apex:pageBlockButtons location="bottom">
+                            <apex:outputPanel rendered="{!$ObjectType.Campaign.accessible}">
+                                <apex:outputText style="font-size:12px;font-weight:600;" value="Add to Campaign"/>
+                                &nbsp;
+                                <apex:selectList value="{!selectedContactCampaign}" style="font-size:12px;" multiselect="false" title="Add to Campaign" size="1">
+                                    <apex:selectOptions value="{!campaignsList}"/>
+                                </apex:selectList>
+                            </apex:outputPanel>
+                            &nbsp;&nbsp;
+                            <apex:commandButton value="Add as Contact" action="{!addAsContacts}"/>
+                        </apex:pageBlockButtons>
+                    </apex:pageBlock>
+                </apex:tab>
+            </apex:tabPanel>
+          </apex:pageBlockSection>
+      </apex:pageBlock>
+  </apex:form>
+</apex:page>

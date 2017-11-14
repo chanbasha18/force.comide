@@ -1,0 +1,8 @@
+<apex:page showHeader="false" sidebar="false">
+  <body style="width: 100%; height: 100%;">
+   <div style="top: 30%; left: 30%; position: absolute;">
+        <b><p style="font-size:30px;color:red;">Thanks for Visiting the portal!</p></b>
+        <a href="https://ap2.salesforce.com/secur/login_portal.jsp?orgId=00D28000001dYO3&portalId=06028000000ToQI" style="color:red">Goto Login page</a>
+    </div>
+  </body>
+</apex:page>
