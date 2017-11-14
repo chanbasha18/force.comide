@@ -3,5 +3,8 @@
  */
 public with sharing class CommunitiesSelfRegConfirmController {
     
-    public CommunitiesSelfRegConfirmController() {}
+    public CommunitiesSelfRegConfirmController() {
+    
+         System.debug();
+    }
 }
